@@ -1,0 +1,23 @@
+SYNTHETIC DEMO POLICY: CPT 29881 (knee arthroscopy with meniscectomy)
+This is a synthetic policy written for demo and testing purposes only.
+It is NOT a CMS document, not a Medicare coverage determination, and not
+verified against any payer or regulatory source.
+
+Medical necessity criteria:
+
+1. Diagnosis specificity. The diagnosis must support medical necessity for a
+   meniscectomy specifically — a documented meniscal tear or derangement
+   (e.g., ICD-10 M23.2xx series). A diagnosis of degenerative osteoarthritis
+   alone (e.g., M17.x), with no documented meniscal tear, does not by itself
+   support medical necessity for this procedure and is high-risk for denial.
+
+2. Laterality. The claim must indicate which knee (right/left) was treated.
+   This can be evidenced either by a CPT laterality modifier (LT/RT) or by an
+   ICD-10 code that itself specifies laterality (many meniscus-injury ICD-10
+   codes encode right/left in the code itself). Claims with no laterality
+   evidence at all — neither a modifier nor a laterality-specific diagnosis
+   code — are subject to automatic denial.
+
+3. Compartment linkage. The diagnosis must be linked to the specific knee
+   compartment treated (medial or lateral meniscus), not a generic or
+   unspecified knee diagnosis.

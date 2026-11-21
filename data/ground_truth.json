@@ -1,0 +1,422 @@
+[
+  {
+    "claim_id": "CLM-0001",
+    "is_anomalous": false,
+    "anomaly_type": null,
+    "rationale": "Low-complexity office visit for a common cold; code level and amount both typical.",
+    "structured": {
+      "cpt_code": "99213",
+      "icd10_code": "J06.9",
+      "billed_amount": 95.0,
+      "provider": "Dr. A. Ramirez",
+      "specialty": "Family Medicine",
+      "date_of_service": "2026-03-02"
+    }
+  },
+  {
+    "claim_id": "CLM-0002",
+    "is_anomalous": false,
+    "anomaly_type": null,
+    "rationale": "Moderate-complexity visit for hypertension management; tier and amount match.",
+    "structured": {
+      "cpt_code": "99214",
+      "icd10_code": "I10",
+      "billed_amount": 175.0,
+      "provider": "Dr. B. Chen",
+      "specialty": "Internal Medicine",
+      "date_of_service": "2026-03-02"
+    }
+  },
+  {
+    "claim_id": "CLM-0003",
+    "is_anomalous": false,
+    "anomaly_type": null,
+    "rationale": "High-complexity visit for heart failure; diagnosis justifies the code level.",
+    "structured": {
+      "cpt_code": "99215",
+      "icd10_code": "I50.9",
+      "billed_amount": 290.0,
+      "provider": "Dr. C. Whitfield",
+      "specialty": "Cardiology",
+      "date_of_service": "2026-03-03"
+    }
+  },
+  {
+    "claim_id": "CLM-0004",
+    "is_anomalous": false,
+    "anomaly_type": null,
+    "rationale": "Routine ECG for a hypertensive patient; standard cardiac indication and price.",
+    "structured": {
+      "cpt_code": "93000",
+      "icd10_code": "I10",
+      "billed_amount": 45.0,
+      "provider": "Dr. C. Whitfield",
+      "specialty": "Cardiology",
+      "date_of_service": "2026-03-03"
+    }
+  },
+  {
+    "claim_id": "CLM-0005",
+    "is_anomalous": false,
+    "anomaly_type": null,
+    "rationale": "Chest X-ray for a respiratory complaint; procedure/diagnosis pairing is expected.",
+    "structured": {
+      "cpt_code": "71046",
+      "icd10_code": "J06.9",
+      "billed_amount": 85.0,
+      "provider": "Dr. A. Ramirez",
+      "specialty": "Family Medicine",
+      "date_of_service": "2026-03-04"
+    }
+  },
+  {
+    "claim_id": "CLM-0006",
+    "is_anomalous": false,
+    "anomaly_type": null,
+    "rationale": "Metabolic panel for diabetes monitoring; routine lab order at typical price.",
+    "structured": {
+      "cpt_code": "80053",
+      "icd10_code": "E11.9",
+      "billed_amount": 42.0,
+      "provider": "Dr. B. Chen",
+      "specialty": "Internal Medicine",
+      "date_of_service": "2026-03-04"
+    }
+  },
+  {
+    "claim_id": "CLM-0007",
+    "is_anomalous": false,
+    "anomaly_type": null,
+    "rationale": "Routine venipuncture accompanying a back-pain workup; typical price.",
+    "structured": {
+      "cpt_code": "36415",
+      "icd10_code": "M54.5",
+      "billed_amount": 15.0,
+      "provider": "Dr. A. Ramirez",
+      "specialty": "Family Medicine",
+      "date_of_service": "2026-03-05"
+    }
+  },
+  {
+    "claim_id": "CLM-0008",
+    "is_anomalous": false,
+    "anomaly_type": null,
+    "rationale": "Joint injection for knee pain; procedure/diagnosis and price all typical.",
+    "structured": {
+      "cpt_code": "20610",
+      "icd10_code": "M25.561",
+      "billed_amount": 110.0,
+      "provider": "Dr. D. Okafor",
+      "specialty": "Orthopedics",
+      "date_of_service": "2026-03-05"
+    }
+  },
+  {
+    "claim_id": "CLM-0009",
+    "is_anomalous": false,
+    "anomaly_type": null,
+    "rationale": "Knee arthroscopy for a documented meniscus tear; expected pairing and price.",
+    "structured": {
+      "cpt_code": "29881",
+      "icd10_code": "M23.221",
+      "billed_amount": 1200.0,
+      "provider": "Dr. D. Okafor",
+      "specialty": "Orthopedics",
+      "date_of_service": "2026-03-06"
+    }
+  },
+  {
+    "claim_id": "CLM-0010",
+    "is_anomalous": false,
+    "anomaly_type": null,
+    "rationale": "Cardiac stress test for angina; expected pairing and price.",
+    "structured": {
+      "cpt_code": "93017",
+      "icd10_code": "I20.9",
+      "billed_amount": 210.0,
+      "provider": "Dr. C. Whitfield",
+      "specialty": "Cardiology",
+      "date_of_service": "2026-03-06"
+    }
+  },
+  {
+    "claim_id": "CLM-0011",
+    "is_anomalous": false,
+    "anomaly_type": "borderline_upcoding",
+    "rationale": "Visit addressed the cold plus two additional documented complaints, justifying one tier above what the primary diagnosis alone implies (tier_gap=1).",
+    "structured": {
+      "cpt_code": "99214",
+      "icd10_code": "J06.9",
+      "billed_amount": 165.0,
+      "provider": "Dr. A. Ramirez",
+      "specialty": "Family Medicine",
+      "date_of_service": "2026-03-07"
+    }
+  },
+  {
+    "claim_id": "CLM-0012",
+    "is_anomalous": false,
+    "anomaly_type": "borderline_upcoding",
+    "rationale": "Hypertension visit with extensive medication reconciliation and counseling documented; one tier above the primary diagnosis alone (tier_gap=1).",
+    "structured": {
+      "cpt_code": "99215",
+      "icd10_code": "I10",
+      "billed_amount": 270.0,
+      "provider": "Dr. B. Chen",
+      "specialty": "Internal Medicine",
+      "date_of_service": "2026-03-08"
+    }
+  },
+  {
+    "claim_id": "CLM-0013",
+    "is_anomalous": false,
+    "anomaly_type": "borderline_amount",
+    "rationale": "Extended stress test protocol with extra monitoring time documented; billed above the typical band but within reason for the added time.",
+    "structured": {
+      "cpt_code": "93017",
+      "icd10_code": "I20.9",
+      "billed_amount": 370.0,
+      "provider": "Dr. C. Whitfield",
+      "specialty": "Cardiology",
+      "date_of_service": "2026-03-09"
+    }
+  },
+  {
+    "claim_id": "CLM-0014",
+    "is_anomalous": false,
+    "anomaly_type": "borderline_amount",
+    "rationale": "Discounted panel rate under a patient assistance program; unusually low but a legitimate billed amount, not a coding error.",
+    "structured": {
+      "cpt_code": "80053",
+      "icd10_code": "E11.9",
+      "billed_amount": 14.0,
+      "provider": "Dr. B. Chen",
+      "specialty": "Internal Medicine",
+      "date_of_service": "2026-03-09"
+    }
+  },
+  {
+    "claim_id": "CLM-0015",
+    "is_anomalous": false,
+    "anomaly_type": "borderline_mismatch",
+    "rationale": "Pre-operative clearance chest X-ray ordered under a general-exam code; not in the procedure's usual diagnosis list but a routine, legitimate order.",
+    "structured": {
+      "cpt_code": "71046",
+      "icd10_code": "Z01.89",
+      "billed_amount": 95.0,
+      "provider": "Dr. A. Ramirez",
+      "specialty": "Family Medicine",
+      "date_of_service": "2026-03-10"
+    }
+  },
+  {
+    "claim_id": "CLM-0016",
+    "is_anomalous": true,
+    "anomaly_type": "upcoding",
+    "rationale": "Billed as high-complexity for a routine general exam (tier_gap=2) \u2014 upcoding.",
+    "structured": {
+      "cpt_code": "99215",
+      "icd10_code": "Z00.00",
+      "billed_amount": 310.0,
+      "provider": "Dr. A. Ramirez",
+      "specialty": "Family Medicine",
+      "date_of_service": "2026-03-11"
+    }
+  },
+  {
+    "claim_id": "CLM-0017",
+    "is_anomalous": true,
+    "anomaly_type": "upcoding",
+    "rationale": "Billed as high-complexity for a common cold (tier_gap=2) \u2014 upcoding.",
+    "structured": {
+      "cpt_code": "99215",
+      "icd10_code": "J06.9",
+      "billed_amount": 300.0,
+      "provider": "Dr. B. Chen",
+      "specialty": "Internal Medicine",
+      "date_of_service": "2026-03-11"
+    }
+  },
+  {
+    "claim_id": "CLM-0018",
+    "is_anomalous": true,
+    "anomaly_type": "upcoding",
+    "rationale": "Billed as high-complexity for routine low back pain (tier_gap=2) \u2014 upcoding.",
+    "structured": {
+      "cpt_code": "99215",
+      "icd10_code": "M54.5",
+      "billed_amount": 305.0,
+      "provider": "Dr. A. Ramirez",
+      "specialty": "Family Medicine",
+      "date_of_service": "2026-03-12"
+    }
+  },
+  {
+    "claim_id": "CLM-0019",
+    "is_anomalous": true,
+    "anomaly_type": "upcoding",
+    "rationale": "Billed as high-complexity for an uncomplicated headache (tier_gap=2) \u2014 upcoding.",
+    "structured": {
+      "cpt_code": "99215",
+      "icd10_code": "R51.9",
+      "billed_amount": 315.0,
+      "provider": "Dr. E. Larsen",
+      "specialty": "Neurology",
+      "date_of_service": "2026-03-12"
+    }
+  },
+  {
+    "claim_id": "CLM-0020",
+    "is_anomalous": true,
+    "anomaly_type": "mismatch",
+    "rationale": "Cardiac stress test billed against an ankle sprain diagnosis \u2014 unrelated codes.",
+    "structured": {
+      "cpt_code": "93017",
+      "icd10_code": "S93.401A",
+      "billed_amount": 220.0,
+      "provider": "Dr. C. Whitfield",
+      "specialty": "Cardiology",
+      "date_of_service": "2026-03-13"
+    }
+  },
+  {
+    "claim_id": "CLM-0021",
+    "is_anomalous": true,
+    "anomaly_type": "mismatch",
+    "rationale": "Knee arthroscopy billed against a common-cold diagnosis \u2014 unrelated codes.",
+    "structured": {
+      "cpt_code": "29881",
+      "icd10_code": "J06.9",
+      "billed_amount": 1100.0,
+      "provider": "Dr. D. Okafor",
+      "specialty": "Orthopedics",
+      "date_of_service": "2026-03-13"
+    }
+  },
+  {
+    "claim_id": "CLM-0022",
+    "is_anomalous": true,
+    "anomaly_type": "mismatch",
+    "rationale": "Joint injection billed against a headache diagnosis \u2014 unrelated codes.",
+    "structured": {
+      "cpt_code": "20610",
+      "icd10_code": "R51.9",
+      "billed_amount": 120.0,
+      "provider": "Dr. D. Okafor",
+      "specialty": "Orthopedics",
+      "date_of_service": "2026-03-14"
+    }
+  },
+  {
+    "claim_id": "CLM-0023",
+    "is_anomalous": true,
+    "anomaly_type": "mismatch",
+    "rationale": "Chest X-ray billed against a back-pain diagnosis \u2014 unrelated codes.",
+    "structured": {
+      "cpt_code": "71046",
+      "icd10_code": "M54.5",
+      "billed_amount": 90.0,
+      "provider": "Dr. A. Ramirez",
+      "specialty": "Family Medicine",
+      "date_of_service": "2026-03-14"
+    }
+  },
+  {
+    "claim_id": "CLM-0024",
+    "is_anomalous": true,
+    "anomaly_type": "amount_outlier",
+    "rationale": "Low-complexity visit billed at ~2x the typical maximum for its code.",
+    "structured": {
+      "cpt_code": "99213",
+      "icd10_code": "J06.9",
+      "billed_amount": 310.0,
+      "provider": "Dr. A. Ramirez",
+      "specialty": "Family Medicine",
+      "date_of_service": "2026-03-15"
+    }
+  },
+  {
+    "claim_id": "CLM-0025",
+    "is_anomalous": true,
+    "anomaly_type": "amount_outlier",
+    "rationale": "Routine venipuncture billed at ~4x its typical maximum.",
+    "structured": {
+      "cpt_code": "36415",
+      "icd10_code": "M54.5",
+      "billed_amount": 95.0,
+      "provider": "Dr. A. Ramirez",
+      "specialty": "Family Medicine",
+      "date_of_service": "2026-03-16"
+    }
+  },
+  {
+    "claim_id": "CLM-0026",
+    "is_anomalous": true,
+    "anomaly_type": "amount_outlier",
+    "rationale": "Metabolic panel billed at ~3x its typical maximum.",
+    "structured": {
+      "cpt_code": "80053",
+      "icd10_code": "E11.9",
+      "billed_amount": 180.0,
+      "provider": "Dr. B. Chen",
+      "specialty": "Internal Medicine",
+      "date_of_service": "2026-03-16"
+    }
+  },
+  {
+    "claim_id": "CLM-0027",
+    "is_anomalous": true,
+    "anomaly_type": "amount_outlier",
+    "rationale": "Routine ECG billed at ~3x its typical maximum.",
+    "structured": {
+      "cpt_code": "93000",
+      "icd10_code": "I10",
+      "billed_amount": 210.0,
+      "provider": "Dr. C. Whitfield",
+      "specialty": "Cardiology",
+      "date_of_service": "2026-03-17"
+    }
+  },
+  {
+    "claim_id": "CLM-0028",
+    "is_anomalous": true,
+    "anomaly_type": "combined",
+    "rationale": "High-complexity code for a routine exam AND billed ~2x its own (already-high) typical maximum \u2014 upcoding plus amount outlier together.",
+    "structured": {
+      "cpt_code": "99215",
+      "icd10_code": "Z00.00",
+      "billed_amount": 650.0,
+      "provider": "Dr. A. Ramirez",
+      "specialty": "Family Medicine",
+      "date_of_service": "2026-03-18"
+    }
+  },
+  {
+    "claim_id": "CLM-0029",
+    "is_anomalous": true,
+    "anomaly_type": "combined",
+    "rationale": "Knee arthroscopy for a common cold AND billed ~2x its typical maximum \u2014 mismatch plus amount outlier together.",
+    "structured": {
+      "cpt_code": "29881",
+      "icd10_code": "J06.9",
+      "billed_amount": 3200.0,
+      "provider": "Dr. D. Okafor",
+      "specialty": "Orthopedics",
+      "date_of_service": "2026-03-19"
+    }
+  },
+  {
+    "claim_id": "CLM-0030",
+    "is_anomalous": true,
+    "anomaly_type": "combined",
+    "rationale": "Cardiac stress test for an ankle sprain AND billed ~2.5x its typical maximum \u2014 mismatch plus amount outlier together.",
+    "structured": {
+      "cpt_code": "93017",
+      "icd10_code": "S93.401A",
+      "billed_amount": 700.0,
+      "provider": "Dr. C. Whitfield",
+      "specialty": "Cardiology",
+      "date_of_service": "2026-03-20"
+    }
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "claim_id": "CLM-0001",
+    "raw_note": "CLM-0001 | DOS: 2026-03-02 | Provider: Dr. A. Ramirez (Family Medicine) | CPT: 99213 | ICD-10: J06.9 | Billed: $95.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0002",
+    "raw_note": "CLM-0002 | DOS: 2026-03-02 | Provider: Dr. B. Chen (Internal Medicine) | CPT: 99214 | ICD-10: I10 | Billed: $175.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0003",
+    "raw_note": "CLM-0003 | DOS: 2026-03-03 | Provider: Dr. C. Whitfield (Cardiology) | CPT: 99215 | ICD-10: I50.9 | Billed: $290.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0004",
+    "raw_note": "CLM-0004 | DOS: 2026-03-03 | Provider: Dr. C. Whitfield (Cardiology) | CPT: 93000 | ICD-10: I10 | Billed: $45.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0005",
+    "raw_note": "CLM-0005 | DOS: 2026-03-04 | Provider: Dr. A. Ramirez (Family Medicine) | CPT: 71046 | ICD-10: J06.9 | Billed: $85.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0006",
+    "raw_note": "CLM-0006 | DOS: 2026-03-04 | Provider: Dr. B. Chen (Internal Medicine) | CPT: 80053 | ICD-10: E11.9 | Billed: $42.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0007",
+    "raw_note": "CLM-0007 | DOS: 2026-03-05 | Provider: Dr. A. Ramirez (Family Medicine) | CPT: 36415 | ICD-10: M54.5 | Billed: $15.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0008",
+    "raw_note": "CLM-0008 | DOS: 2026-03-05 | Provider: Dr. D. Okafor (Orthopedics) | CPT: 20610 | ICD-10: M25.561 | Billed: $110.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0009",
+    "raw_note": "CLM-0009 | DOS: 2026-03-06 | Provider: Dr. D. Okafor (Orthopedics) | CPT: 29881 | ICD-10: M23.221 | Billed: $1200.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0010",
+    "raw_note": "CLM-0010 | DOS: 2026-03-06 | Provider: Dr. C. Whitfield (Cardiology) | CPT: 93017 | ICD-10: I20.9 | Billed: $210.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0011",
+    "raw_note": "CLM-0011 | DOS: 2026-03-07 | Provider: Dr. A. Ramirez (Family Medicine) | CPT: 99214 | ICD-10: J06.9 | Billed: $165.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0012",
+    "raw_note": "CLM-0012 | DOS: 2026-03-08 | Provider: Dr. B. Chen (Internal Medicine) | CPT: 99215 | ICD-10: I10 | Billed: $270.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0013",
+    "raw_note": "CLM-0013 | DOS: 2026-03-09 | Provider: Dr. C. Whitfield (Cardiology) | CPT: 93017 | ICD-10: I20.9 | Billed: $370.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0014",
+    "raw_note": "CLM-0014 | DOS: 2026-03-09 | Provider: Dr. B. Chen (Internal Medicine) | CPT: 80053 | ICD-10: E11.9 | Billed: $14.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0015",
+    "raw_note": "CLM-0015 | DOS: 2026-03-10 | Provider: Dr. A. Ramirez (Family Medicine) | CPT: 71046 | ICD-10: Z01.89 | Billed: $95.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0016",
+    "raw_note": "CLM-0016 | DOS: 2026-03-11 | Provider: Dr. A. Ramirez (Family Medicine) | CPT: 99215 | ICD-10: Z00.00 | Billed: $310.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0017",
+    "raw_note": "CLM-0017 | DOS: 2026-03-11 | Provider: Dr. B. Chen (Internal Medicine) | CPT: 99215 | ICD-10: J06.9 | Billed: $300.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0018",
+    "raw_note": "CLM-0018 | DOS: 2026-03-12 | Provider: Dr. A. Ramirez (Family Medicine) | CPT: 99215 | ICD-10: M54.5 | Billed: $305.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0019",
+    "raw_note": "CLM-0019 | DOS: 2026-03-12 | Provider: Dr. E. Larsen (Neurology) | CPT: 99215 | ICD-10: R51.9 | Billed: $315.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0020",
+    "raw_note": "CLM-0020 | DOS: 2026-03-13 | Provider: Dr. C. Whitfield (Cardiology) | CPT: 93017 | ICD-10: S93.401A | Billed: $220.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0021",
+    "raw_note": "CLM-0021 | DOS: 2026-03-13 | Provider: Dr. D. Okafor (Orthopedics) | CPT: 29881 | ICD-10: J06.9 | Billed: $1100.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0022",
+    "raw_note": "CLM-0022 | DOS: 2026-03-14 | Provider: Dr. D. Okafor (Orthopedics) | CPT: 20610 | ICD-10: R51.9 | Billed: $120.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0023",
+    "raw_note": "CLM-0023 | DOS: 2026-03-14 | Provider: Dr. A. Ramirez (Family Medicine) | CPT: 71046 | ICD-10: M54.5 | Billed: $90.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0024",
+    "raw_note": "CLM-0024 | DOS: 2026-03-15 | Provider: Dr. A. Ramirez (Family Medicine) | CPT: 99213 | ICD-10: J06.9 | Billed: $310.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0025",
+    "raw_note": "CLM-0025 | DOS: 2026-03-16 | Provider: Dr. A. Ramirez (Family Medicine) | CPT: 36415 | ICD-10: M54.5 | Billed: $95.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0026",
+    "raw_note": "CLM-0026 | DOS: 2026-03-16 | Provider: Dr. B. Chen (Internal Medicine) | CPT: 80053 | ICD-10: E11.9 | Billed: $180.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0027",
+    "raw_note": "CLM-0027 | DOS: 2026-03-17 | Provider: Dr. C. Whitfield (Cardiology) | CPT: 93000 | ICD-10: I10 | Billed: $210.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0028",
+    "raw_note": "CLM-0028 | DOS: 2026-03-18 | Provider: Dr. A. Ramirez (Family Medicine) | CPT: 99215 | ICD-10: Z00.00 | Billed: $650.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0029",
+    "raw_note": "CLM-0029 | DOS: 2026-03-19 | Provider: Dr. D. Okafor (Orthopedics) | CPT: 29881 | ICD-10: J06.9 | Billed: $3200.00 | Units: 1"
+  },
+  {
+    "claim_id": "CLM-0030",
+    "raw_note": "CLM-0030 | DOS: 2026-03-20 | Provider: Dr. C. Whitfield (Cardiology) | CPT: 93017 | ICD-10: S93.401A | Billed: $700.00 | Units: 1"
+  }
+]
