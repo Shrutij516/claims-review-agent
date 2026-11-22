@@ -6,10 +6,6 @@ EN = chr(0x2013)
 ESCAPED = [chr(92) + "u2014", chr(92) + "u2013"]
 
 
-# v1 files that still contain dashes; they are deleted in the retirement commit (D15, I22).
-V1_FILES = {ROOT / "src" / "rules.py", ROOT / "src" / "baseline.py", ROOT / "src" / "generate_claims.py"}
-
-
 def _files(*names, suffixes=(".py", ".md", ".toml", ".txt")):
     out = []
     for name in names:
@@ -18,7 +14,7 @@ def _files(*names, suffixes=(".py", ".md", ".toml", ".txt")):
             out.append(p)
         else:
             out += [f for f in sorted(p.rglob("*")) if f.is_file() and f.suffix in suffixes
-                    and "__pycache__" not in f.parts and f not in V1_FILES]
+                    and "__pycache__" not in f.parts]
     return out
 
 
