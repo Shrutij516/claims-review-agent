@@ -23,6 +23,7 @@ class GroqLLM:
     The key comes from the GROQ_API_KEY environment variable and the model from GROQ_MODEL
     (default openai/gpt-oss-120b). The key is never stored on this object or printed.
     """
+    temperature = 0
 
     def __init__(self, model: str | None = None, timeout: float = 60.0, client=None):
         self.model = model or os.environ.get("GROQ_MODEL") or DEFAULT_MODEL
@@ -43,5 +44,5 @@ class GroqLLM:
     def complete(self, messages: list[dict]) -> str:
         """Send the messages and return the reply text ('' if the model returned no content)."""
         response = self._client.chat.completions.create(
-            model=self.model, messages=messages, temperature=0, timeout=self.timeout)
+            model=self.model, messages=messages, temperature=self.temperature, timeout=self.timeout)
         return response.choices[0].message.content or ""
