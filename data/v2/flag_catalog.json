@@ -1,0 +1,137 @@
+{
+  "synthetic_notice": "SYNTHETIC. The price bands, unit limits, diagnosis complexity tiers, diagnosis support lists and every threshold in this file are invented for this project. They are not taken from CMS, any payer, or any fee schedule.",
+  "flags": [
+    {
+      "flag_id": "R_INVALID_CODE",
+      "description": "A procedure code, diagnosis code or modifier on the claim is not in the code tables.",
+      "detection": "rule",
+      "policy_ids": []
+    },
+    {
+      "flag_id": "R_DUPLICATE_CLAIM",
+      "description": "Same patient, procedure code and provider as an earlier claim within the duplicate window.",
+      "detection": "rule",
+      "policy_ids": ["POL-004"]
+    },
+    {
+      "flag_id": "R_UNITS_EXCEEDED",
+      "description": "Units billed are above the per-code daily limit.",
+      "detection": "rule",
+      "policy_ids": ["POL-005", "POL-007", "POL-008"]
+    },
+    {
+      "flag_id": "R_PRICE_OUTLIER",
+      "description": "Billed amount per unit is above the outlier multiplier times the top of the synthetic price band for the code.",
+      "detection": "rule",
+      "policy_ids": []
+    },
+    {
+      "flag_id": "R_LATERALITY_MISSING",
+      "description": "A code that needs laterality has neither an RT or LT modifier nor a diagnosis code that specifies right, left or bilateral.",
+      "detection": "rule",
+      "policy_ids": ["POL-001", "POL-003"]
+    },
+    {
+      "flag_id": "R_DX_NOT_SUPPORTING",
+      "description": "None of the diagnosis codes is in the support list for the procedure code.",
+      "detection": "rule",
+      "policy_ids": ["POL-001"]
+    },
+    {
+      "flag_id": "R_MOD25_MISSING",
+      "description": "An office visit has a same-day procedure for the same patient and provider but no modifier 25.",
+      "detection": "rule",
+      "policy_ids": ["POL-006"]
+    },
+    {
+      "flag_id": "R_EM_LEVEL_VS_DX",
+      "description": "The office visit level needs a higher diagnosis complexity tier than any diagnosis on the claim.",
+      "detection": "rule",
+      "policy_ids": ["POL-002"]
+    },
+    {
+      "flag_id": "P_NO_CONSERVATIVE_THERAPY",
+      "description": "Knee MRI where the clinical note does not document 6 weeks of conservative therapy and does not document a red flag.",
+      "detection": "policy_reading",
+      "policy_ids": ["POL-003"]
+    },
+    {
+      "flag_id": "P_DEGENERATIVE_ONLY",
+      "description": "Knee arthroscopy where the clinical note describes only degenerative findings and no meniscal tear, even though the diagnosis code looks supportive.",
+      "detection": "policy_reading",
+      "policy_ids": ["POL-001"]
+    }
+  ],
+  "parameters": {
+    "duplicate_window_days": 14,
+    "price_outlier_multiplier": 1.5,
+    "price_bands_per_unit": {
+      "99213": [80, 140],
+      "99214": [120, 200],
+      "99215": [180, 300],
+      "29881": [1800, 3200],
+      "73721": [350, 700],
+      "97110": [35, 60],
+      "20610": [60, 140],
+      "93000": [20, 60],
+      "36415": [8, 25],
+      "80053": [20, 60],
+      "71046": [45, 110],
+      "96372": [20, 50],
+      "J3301": [4, 12],
+      "J1100": [1, 6],
+      "J1030": [6, 20],
+      "J0696": [8, 25]
+    },
+    "units_per_day_limit": {
+      "99213": 1,
+      "99214": 1,
+      "99215": 1,
+      "29881": 1,
+      "73721": 1,
+      "97110": 4,
+      "20610": 2,
+      "93000": 1,
+      "36415": 1,
+      "80053": 1,
+      "71046": 1,
+      "96372": 2,
+      "J3301": 8,
+      "J1100": 10,
+      "J1030": 2,
+      "J0696": 4
+    },
+    "hcpcs_billing_unit_mg": {
+      "J3301": 10,
+      "J1100": 1,
+      "J1030": 40,
+      "J0696": 250
+    },
+    "icd_tier": {
+      "M23.221": 2, "M23.222": 2, "M23.229": 2, "M23.251": 2, "M23.252": 2,
+      "M17.0": 2, "M17.10": 2, "M17.11": 2, "M17.12": 2, "M17.9": 2,
+      "M25.561": 1, "M25.562": 1, "M25.569": 1, "M25.511": 1,
+      "M54.50": 1,
+      "I10": 2, "E11.9": 2, "E78.5": 2, "J45.909": 2,
+      "J06.9": 1, "Z00.00": 1, "R51.9": 1,
+      "I50.9": 3, "N18.4": 3,
+      "R07.9": 2
+    },
+    "em_min_tier": {
+      "99213": 1,
+      "99214": 2,
+      "99215": 3
+    },
+    "dx_support_prefixes": {
+      "29881": ["M23.2"],
+      "73721": ["M23.", "M17", "M25.56"],
+      "97110": ["M54", "M25", "M17", "M23"],
+      "20610": ["M25", "M17", "M23"],
+      "93000": ["I", "R07"],
+      "71046": ["J", "R07", "I50"]
+    },
+    "laterality_required_codes": ["29881", "73721"],
+    "mod25_em_codes": ["99213", "99214", "99215"],
+    "mod25_procedure_codes": ["20610", "96372"]
+  }
+}

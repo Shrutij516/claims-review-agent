@@ -1,0 +1,9 @@
+{
+  "note": "HCPCS Level II codes. Descriptions are short summaries in our own words. NOT yet verified against the official CMS HCPCS quarterly file, see SOURCES.md.",
+  "codes": [
+    {"code": "J3301", "short_desc": "Triamcinolone steroid injection, billed per 10 mg"},
+    {"code": "J1100", "short_desc": "Dexamethasone steroid injection, billed per 1 mg"},
+    {"code": "J1030", "short_desc": "Methylprednisolone steroid injection, billed per 40 mg"},
+    {"code": "J0696", "short_desc": "Ceftriaxone antibiotic injection, billed per 250 mg"}
+  ]
+}

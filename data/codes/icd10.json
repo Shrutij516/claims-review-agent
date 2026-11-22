@@ -1,0 +1,30 @@
+{
+  "note": "ICD-10-CM codes are public. Descriptions are short summaries in our own words. NOT yet verified against the official CMS files, see SOURCES.md. The laterality field is our own annotation derived from the code's last character and must be verified too.",
+  "codes": [
+    {"code": "M23.221", "short_desc": "Old tear of the back part of the medial meniscus, right knee", "laterality": "right"},
+    {"code": "M23.222", "short_desc": "Old tear of the back part of the medial meniscus, left knee", "laterality": "left"},
+    {"code": "M23.229", "short_desc": "Old tear of the back part of the medial meniscus, knee side not specified", "laterality": "unspecified"},
+    {"code": "M23.251", "short_desc": "Old tear of the back part of the lateral meniscus, right knee", "laterality": "right"},
+    {"code": "M23.252", "short_desc": "Old tear of the back part of the lateral meniscus, left knee", "laterality": "left"},
+    {"code": "M17.0", "short_desc": "Primary osteoarthritis of both knees", "laterality": "bilateral"},
+    {"code": "M17.10", "short_desc": "Primary osteoarthritis of one knee, side not specified", "laterality": "unspecified"},
+    {"code": "M17.11", "short_desc": "Primary osteoarthritis of the right knee", "laterality": "right"},
+    {"code": "M17.12", "short_desc": "Primary osteoarthritis of the left knee", "laterality": "left"},
+    {"code": "M17.9", "short_desc": "Osteoarthritis of the knee, type not specified", "laterality": "unspecified"},
+    {"code": "M25.561", "short_desc": "Pain in the right knee", "laterality": "right"},
+    {"code": "M25.562", "short_desc": "Pain in the left knee", "laterality": "left"},
+    {"code": "M25.569", "short_desc": "Pain in a knee, side not specified", "laterality": "unspecified"},
+    {"code": "M25.511", "short_desc": "Pain in the right shoulder", "laterality": "right"},
+    {"code": "M54.50", "short_desc": "Low back pain, not otherwise specified", "laterality": "none"},
+    {"code": "I10", "short_desc": "High blood pressure with no known secondary cause", "laterality": "none"},
+    {"code": "E11.9", "short_desc": "Type 2 diabetes without complications", "laterality": "none"},
+    {"code": "E78.5", "short_desc": "High cholesterol or lipids, not otherwise specified", "laterality": "none"},
+    {"code": "J45.909", "short_desc": "Asthma, not otherwise specified, without flare", "laterality": "none"},
+    {"code": "J06.9", "short_desc": "Short term upper airway infection, not otherwise specified", "laterality": "none"},
+    {"code": "Z00.00", "short_desc": "Routine adult health exam with no abnormal findings", "laterality": "none"},
+    {"code": "I50.9", "short_desc": "Heart failure, not otherwise specified", "laterality": "none"},
+    {"code": "N18.4", "short_desc": "Chronic kidney disease, stage 4", "laterality": "none"},
+    {"code": "R07.9", "short_desc": "Chest pain, not otherwise specified", "laterality": "none"},
+    {"code": "R51.9", "short_desc": "Headache, not otherwise specified", "laterality": "none"}
+  ]
+}

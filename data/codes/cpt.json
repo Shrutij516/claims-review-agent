@@ -1,0 +1,22 @@
+{
+  "note": "CPT is AMA copyrighted; descriptions are original summaries. The code numbers are NOT yet verified against an official source, see SOURCES.md.",
+  "codes": [
+    {"code": "99213", "short_desc": "Established patient office visit, level 3 of 5"},
+    {"code": "99214", "short_desc": "Established patient office visit, level 4 of 5"},
+    {"code": "99215", "short_desc": "Established patient office visit, level 5 of 5"},
+    {"code": "29881", "short_desc": "Knee arthroscopy with removal of damaged meniscus tissue"},
+    {"code": "73721", "short_desc": "MRI of a lower body joint such as the knee, no contrast"},
+    {"code": "97110", "short_desc": "Therapeutic exercise, billed per 15 minute unit"},
+    {"code": "20610", "short_desc": "Needle drainage or injection of a large joint, no ultrasound guidance"},
+    {"code": "93000", "short_desc": "Routine 12 lead heart tracing with report"},
+    {"code": "36415", "short_desc": "Blood draw from a vein by needle"},
+    {"code": "80053", "short_desc": "Comprehensive blood chemistry panel"},
+    {"code": "71046", "short_desc": "Chest x-ray, two views"},
+    {"code": "96372", "short_desc": "Therapeutic injection under the skin or into muscle"}
+  ],
+  "modifiers": [
+    {"code": "25", "short_desc": "Separately identifiable visit on the same day as a procedure"},
+    {"code": "RT", "short_desc": "Right side"},
+    {"code": "LT", "short_desc": "Left side"}
+  ]
+}

@@ -1,0 +1,1084 @@
+[
+  {
+    "claim_id": "V2-0001",
+    "split": "test",
+    "category": "hard_negative",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [
+      {
+        "kind": "policy",
+        "id": "POL-003.1"
+      }
+    ],
+    "needs_policy_reading": true,
+    "notes": "Note mentions only home exercises and a brace, but for 8 weeks, which meets the requirement."
+  },
+  {
+    "claim_id": "V2-0002",
+    "split": "test",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "P_NO_CONSERVATIVE_THERAPY"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "P_NO_CONSERVATIVE_THERAPY"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-003.1"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-003.2"
+      }
+    ],
+    "needs_policy_reading": true,
+    "notes": "Knee MRI with only a short home exercise period documented."
+  },
+  {
+    "claim_id": "V2-0003",
+    "split": "test",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "R_MOD25_MISSING"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "R_MOD25_MISSING"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-006.1"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Office visit and a joint injection billed on the same day for the same patient and provider, with no modifier 25 on the visit."
+  },
+  {
+    "claim_id": "V2-0004",
+    "split": "test",
+    "category": "hard_negative",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [
+      {
+        "kind": "policy",
+        "id": "POL-001.2"
+      },
+      {
+        "kind": "code",
+        "id": "M23.222"
+      }
+    ],
+    "needs_policy_reading": true,
+    "notes": "No RT or LT modifier, but the diagnosis code itself specifies the left knee."
+  },
+  {
+    "claim_id": "V2-0005",
+    "split": "dev",
+    "category": "hard_negative",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [
+      {
+        "kind": "policy",
+        "id": "POL-003.3"
+      }
+    ],
+    "needs_policy_reading": true,
+    "notes": "No conservative therapy, but the note documents a locked knee, which is an allowed exception."
+  },
+  {
+    "claim_id": "V2-0006",
+    "split": "dev",
+    "category": "clean",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [
+      {
+        "kind": "policy",
+        "id": "POL-008.2"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Three units, within the limit, with goals documented."
+  },
+  {
+    "claim_id": "V2-0007",
+    "split": "test",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "R_EM_LEVEL_VS_DX"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "R_EM_LEVEL_VS_DX"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-002.2"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-002.4"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Level 5 visit with a minor illness diagnosis."
+  },
+  {
+    "claim_id": "V2-0008",
+    "split": "test",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "P_NO_CONSERVATIVE_THERAPY"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "P_NO_CONSERVATIVE_THERAPY"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-003.1"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-003.2"
+      }
+    ],
+    "needs_policy_reading": true,
+    "notes": "Knee MRI with a few weeks of symptoms and no therapy tried."
+  },
+  {
+    "claim_id": "V2-0009",
+    "split": "dev",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "P_DEGENERATIVE_ONLY"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "P_DEGENERATIVE_ONLY"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-001.1"
+      },
+      {
+        "kind": "code",
+        "id": "M23.222"
+      }
+    ],
+    "needs_policy_reading": true,
+    "notes": "Meniscus code on the claim, but the note describes only degenerative findings and no tear."
+  },
+  {
+    "claim_id": "V2-0010",
+    "split": "test",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "P_DEGENERATIVE_ONLY"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "P_DEGENERATIVE_ONLY"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-001.1"
+      },
+      {
+        "kind": "code",
+        "id": "M23.251"
+      }
+    ],
+    "needs_policy_reading": true,
+    "notes": "Meniscus code on the claim, but imaging in the note shows degenerative fraying only."
+  },
+  {
+    "claim_id": "V2-0011",
+    "split": "test",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "R_EM_LEVEL_VS_DX"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "R_EM_LEVEL_VS_DX"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-002.2"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-002.4"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Level 5 visit with a routine exam diagnosis."
+  },
+  {
+    "claim_id": "V2-0012",
+    "split": "dev",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "R_UNITS_EXCEEDED"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "R_UNITS_EXCEEDED"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-005.1"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-005.2"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Six units of 97110 on one day, above the limit of four."
+  },
+  {
+    "claim_id": "V2-0013",
+    "split": "dev",
+    "category": "clean",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [],
+    "needs_policy_reading": false,
+    "notes": "Routine visit. It is the earlier claim of a pair."
+  },
+  {
+    "claim_id": "V2-0014",
+    "split": "dev",
+    "category": "clean",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [],
+    "needs_policy_reading": false,
+    "notes": "Routine ECG for hypertension."
+  },
+  {
+    "claim_id": "V2-0015",
+    "split": "dev",
+    "category": "hard_negative",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [
+      {
+        "kind": "policy",
+        "id": "POL-004.3"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Same patient, code and provider as another claim, but 21 days later, outside the 14 day window."
+  },
+  {
+    "claim_id": "V2-0016",
+    "split": "test",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "R_PRICE_OUTLIER"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "R_PRICE_OUTLIER"
+      },
+      {
+        "kind": "code",
+        "id": "80053"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Billed amount far above the top of the synthetic band."
+  },
+  {
+    "claim_id": "V2-0017",
+    "split": "test",
+    "category": "clean",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [
+      {
+        "kind": "policy",
+        "id": "POL-003.1"
+      }
+    ],
+    "needs_policy_reading": true,
+    "notes": "Knee MRI after at least 6 weeks of documented supervised therapy."
+  },
+  {
+    "claim_id": "V2-0018",
+    "split": "test",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "R_INVALID_CODE"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "R_INVALID_CODE"
+      },
+      {
+        "kind": "code",
+        "id": "99216"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Procedure code 99216 is not in the code tables."
+  },
+  {
+    "claim_id": "V2-0019",
+    "split": "test",
+    "category": "clean",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [],
+    "needs_policy_reading": false,
+    "notes": "Routine hypertension visit."
+  },
+  {
+    "claim_id": "V2-0020",
+    "split": "test",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "R_PRICE_OUTLIER"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "R_PRICE_OUTLIER"
+      },
+      {
+        "kind": "code",
+        "id": "93000"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Billed amount far above the top of the synthetic band."
+  },
+  {
+    "claim_id": "V2-0021",
+    "split": "test",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "R_INVALID_CODE"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "R_INVALID_CODE"
+      },
+      {
+        "kind": "code",
+        "id": "M17.99"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Second diagnosis code M17.99 is not in the code tables."
+  },
+  {
+    "claim_id": "V2-0022",
+    "split": "dev",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "R_LATERALITY_MISSING"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "R_LATERALITY_MISSING"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-003.4"
+      },
+      {
+        "kind": "code",
+        "id": "M25.569"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Knee MRI with no side given by a modifier or by the diagnosis code."
+  },
+  {
+    "claim_id": "V2-0023",
+    "split": "test",
+    "category": "clean",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [],
+    "needs_policy_reading": false,
+    "notes": "Routine minor illness visit."
+  },
+  {
+    "claim_id": "V2-0024",
+    "split": "test",
+    "category": "clean",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [],
+    "needs_policy_reading": false,
+    "notes": "Injection given in clinic. It is the procedure claim of a same-day pair."
+  },
+  {
+    "claim_id": "V2-0025",
+    "split": "test",
+    "category": "clean",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [],
+    "needs_policy_reading": false,
+    "notes": "Joint injection. It is the procedure claim of a same-day pair."
+  },
+  {
+    "claim_id": "V2-0026",
+    "split": "test",
+    "category": "hard_negative",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [
+      {
+        "kind": "policy",
+        "id": "POL-002.3"
+      },
+      {
+        "kind": "code",
+        "id": "I50.9"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Level 5 visit at the top of the price band, supported by a heart failure diagnosis."
+  },
+  {
+    "claim_id": "V2-0027",
+    "split": "test",
+    "category": "clean",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [
+      {
+        "kind": "policy",
+        "id": "POL-001.1"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-001.2"
+      }
+    ],
+    "needs_policy_reading": true,
+    "notes": "Documented meniscal tear, with an RT modifier and a right knee diagnosis code."
+  },
+  {
+    "claim_id": "V2-0028",
+    "split": "test",
+    "category": "hard_negative",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [
+      {
+        "kind": "policy",
+        "id": "POL-003.3"
+      }
+    ],
+    "needs_policy_reading": true,
+    "notes": "No conservative therapy, but a locked knee is documented, which is an allowed exception."
+  },
+  {
+    "claim_id": "V2-0029",
+    "split": "test",
+    "category": "clean",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [
+      {
+        "kind": "policy",
+        "id": "POL-002.3"
+      },
+      {
+        "kind": "code",
+        "id": "N18.4"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Level 5 visit supported by a stage 4 kidney disease diagnosis."
+  },
+  {
+    "claim_id": "V2-0030",
+    "split": "dev",
+    "category": "clean",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [],
+    "needs_policy_reading": false,
+    "notes": "Routine metabolic panel for diabetes."
+  },
+  {
+    "claim_id": "V2-0031",
+    "split": "test",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "R_UNITS_EXCEEDED"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "R_UNITS_EXCEEDED"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-007.2"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-007.3"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Twelve units of J3301 billed for a documented 40 mg dose, above the limit of eight."
+  },
+  {
+    "claim_id": "V2-0032",
+    "split": "test",
+    "category": "hard_negative",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [
+      {
+        "kind": "policy",
+        "id": "POL-006.1"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-006.2"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Office visit billed with a same-day injection, and modifier 25 is present."
+  },
+  {
+    "claim_id": "V2-0033",
+    "split": "dev",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "R_DX_NOT_SUPPORTING"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "R_DX_NOT_SUPPORTING"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-001.1"
+      },
+      {
+        "kind": "code",
+        "id": "M17.11"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Knee arthroscopy billed with an osteoarthritis diagnosis only."
+  },
+  {
+    "claim_id": "V2-0034",
+    "split": "dev",
+    "category": "clean",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [],
+    "needs_policy_reading": false,
+    "notes": "Routine minor illness visit."
+  },
+  {
+    "claim_id": "V2-0035",
+    "split": "dev",
+    "category": "hard_negative",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [
+      {
+        "kind": "policy",
+        "id": "POL-001.2"
+      },
+      {
+        "kind": "code",
+        "id": "M23.222"
+      }
+    ],
+    "needs_policy_reading": true,
+    "notes": "No RT or LT modifier, but the diagnosis code itself specifies the left knee."
+  },
+  {
+    "claim_id": "V2-0036",
+    "split": "test",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "R_DUPLICATE_CLAIM"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "R_DUPLICATE_CLAIM"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-004.1"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Same patient, code and provider as another claim 8 days earlier."
+  },
+  {
+    "claim_id": "V2-0037",
+    "split": "test",
+    "category": "hard_negative",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [
+      {
+        "kind": "policy",
+        "id": "POL-004.3"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Same patient, code and provider as another claim, but 21 days later, outside the 14 day window."
+  },
+  {
+    "claim_id": "V2-0038",
+    "split": "test",
+    "category": "clean",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [],
+    "needs_policy_reading": false,
+    "notes": "Chest x-ray for a respiratory complaint."
+  },
+  {
+    "claim_id": "V2-0039",
+    "split": "dev",
+    "category": "clean",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [],
+    "needs_policy_reading": false,
+    "notes": "Chest x-ray for a respiratory complaint."
+  },
+  {
+    "claim_id": "V2-0040",
+    "split": "test",
+    "category": "hard_negative",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [
+      {
+        "kind": "policy",
+        "id": "POL-001.1"
+      }
+    ],
+    "needs_policy_reading": true,
+    "notes": "Osteoarthritis code is also on the claim, but the note documents a meniscal tear as the reason for surgery."
+  },
+  {
+    "claim_id": "V2-0041",
+    "split": "dev",
+    "category": "clean",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [],
+    "needs_policy_reading": false,
+    "notes": "Routine hypertension visit. It is the earlier claim of a pair."
+  },
+  {
+    "claim_id": "V2-0042",
+    "split": "test",
+    "category": "clean",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [],
+    "needs_policy_reading": false,
+    "notes": "Routine blood draw."
+  },
+  {
+    "claim_id": "V2-0043",
+    "split": "test",
+    "category": "clean",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [],
+    "needs_policy_reading": false,
+    "notes": "Routine visit. It is the earlier claim of a pair."
+  },
+  {
+    "claim_id": "V2-0044",
+    "split": "test",
+    "category": "clean",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [],
+    "needs_policy_reading": false,
+    "notes": "Routine asthma follow up."
+  },
+  {
+    "claim_id": "V2-0045",
+    "split": "test",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "P_DEGENERATIVE_ONLY"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "P_DEGENERATIVE_ONLY"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-001.1"
+      },
+      {
+        "kind": "code",
+        "id": "M23.252"
+      }
+    ],
+    "needs_policy_reading": true,
+    "notes": "Meniscus code on the claim, but the note says no discrete tear was found."
+  },
+  {
+    "claim_id": "V2-0046",
+    "split": "test",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "R_UNITS_EXCEEDED"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "R_UNITS_EXCEEDED"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-005.1"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-005.2"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Six units of 97110 on one day, above the limit of four."
+  },
+  {
+    "claim_id": "V2-0047",
+    "split": "dev",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "R_PRICE_OUTLIER"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "R_PRICE_OUTLIER"
+      },
+      {
+        "kind": "code",
+        "id": "99213"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Billed amount per unit is far above the top of the synthetic band."
+  },
+  {
+    "claim_id": "V2-0048",
+    "split": "test",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "P_NO_CONSERVATIVE_THERAPY"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "P_NO_CONSERVATIVE_THERAPY"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-003.1"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-003.2"
+      }
+    ],
+    "needs_policy_reading": true,
+    "notes": "Knee MRI for recent onset pain with conservative treatment not yet started."
+  },
+  {
+    "claim_id": "V2-0049",
+    "split": "dev",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "R_INVALID_CODE"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "R_INVALID_CODE"
+      },
+      {
+        "kind": "code",
+        "id": "I1O"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Second diagnosis code has a letter O in place of a zero and is not in the code tables."
+  },
+  {
+    "claim_id": "V2-0050",
+    "split": "test",
+    "category": "hard_negative",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [
+      {
+        "kind": "policy",
+        "id": "POL-005.3"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Four units of 97110, exactly at the limit."
+  },
+  {
+    "claim_id": "V2-0051",
+    "split": "dev",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "R_EM_LEVEL_VS_DX"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "R_EM_LEVEL_VS_DX"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-002.2"
+      },
+      {
+        "kind": "code",
+        "id": "M54.50"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Level 4 visit with only a tier 1 diagnosis."
+  },
+  {
+    "claim_id": "V2-0052",
+    "split": "dev",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "R_DUPLICATE_CLAIM"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "R_DUPLICATE_CLAIM"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-004.1"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Same patient, code and provider as another claim 6 days earlier."
+  },
+  {
+    "claim_id": "V2-0053",
+    "split": "dev",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "P_NO_CONSERVATIVE_THERAPY"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "P_NO_CONSERVATIVE_THERAPY"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-003.1"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-003.2"
+      }
+    ],
+    "needs_policy_reading": true,
+    "notes": "Knee MRI with a few weeks of symptoms and no conservative therapy or red flag documented in the note."
+  },
+  {
+    "claim_id": "V2-0054",
+    "split": "test",
+    "category": "clean",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [],
+    "needs_policy_reading": false,
+    "notes": "ECG for chest pain."
+  },
+  {
+    "claim_id": "V2-0055",
+    "split": "test",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "R_LATERALITY_MISSING"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "R_LATERALITY_MISSING"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-001.2"
+      },
+      {
+        "kind": "code",
+        "id": "M23.229"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Knee arthroscopy with no modifier and a diagnosis code that does not give the side."
+  },
+  {
+    "claim_id": "V2-0056",
+    "split": "test",
+    "category": "hard_negative",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [
+      {
+        "kind": "policy",
+        "id": "POL-005.3"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-007.2"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Eight units of J3301 for a documented 80 mg dose, exactly at the limit."
+  },
+  {
+    "claim_id": "V2-0057",
+    "split": "test",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "P_DEGENERATIVE_ONLY"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "P_DEGENERATIVE_ONLY"
+      },
+      {
+        "kind": "policy",
+        "id": "POL-001.1"
+      },
+      {
+        "kind": "code",
+        "id": "M23.221"
+      }
+    ],
+    "needs_policy_reading": true,
+    "notes": "Meniscus code on the claim, but the note describes only degenerative changes and no tear."
+  },
+  {
+    "claim_id": "V2-0058",
+    "split": "test",
+    "category": "anomaly",
+    "is_anomalous": true,
+    "expected_flags": [
+      "R_DX_NOT_SUPPORTING"
+    ],
+    "evidence": [
+      {
+        "kind": "flag",
+        "id": "R_DX_NOT_SUPPORTING"
+      },
+      {
+        "kind": "code",
+        "id": "M54.50"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Chest x-ray billed with a back pain diagnosis only."
+  },
+  {
+    "claim_id": "V2-0059",
+    "split": "test",
+    "category": "clean",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [],
+    "needs_policy_reading": false,
+    "notes": "Routine hypertension visit. It is the earlier claim of a pair."
+  },
+  {
+    "claim_id": "V2-0060",
+    "split": "dev",
+    "category": "hard_negative",
+    "is_anomalous": false,
+    "expected_flags": [],
+    "evidence": [
+      {
+        "kind": "policy",
+        "id": "POL-002.3"
+      },
+      {
+        "kind": "code",
+        "id": "I50.9"
+      }
+    ],
+    "needs_policy_reading": false,
+    "notes": "Looks like an expensive level 5 visit, but heart failure supports it and the price is inside the band."
+  }
+]

@@ -1,0 +1,1209 @@
+[
+  {
+    "claim_id": "V2-0001",
+    "patient_ref": "P-0052",
+    "patient_age_band": "40-49",
+    "patient_sex": "M",
+    "date_of_service": "2026-03-06",
+    "provider": {
+      "name": "Dr. Bram Oduya",
+      "specialty": "Orthopedics"
+    },
+    "place_of_service": "22",
+    "cpt": "73721",
+    "modifiers": [],
+    "icd10": [
+      "M25.562"
+    ],
+    "units": 1,
+    "billed_amount": 620.48,
+    "clinical_note": "Knee pain for 10 weeks that has not improved with 8 weeks of a home exercise program and a knee brace. Exam shows mild swelling and joint line tenderness. MRI was ordered to evaluate further."
+  },
+  {
+    "claim_id": "V2-0002",
+    "patient_ref": "P-0035",
+    "patient_age_band": "50-59",
+    "patient_sex": "F",
+    "date_of_service": "2026-01-08",
+    "provider": {
+      "name": "Dr. Calista Moreau",
+      "specialty": "Orthopedics"
+    },
+    "place_of_service": "22",
+    "cpt": "73721",
+    "modifiers": [],
+    "icd10": [
+      "M25.562"
+    ],
+    "units": 1,
+    "billed_amount": 600.24,
+    "clinical_note": "Patient reports knee pain for 4 weeks. Home exercises only for the past 2 weeks, with no formal therapy and no anti-inflammatory medication. There is no locking or giving way, and a knee MRI was ordered."
+  },
+  {
+    "claim_id": "V2-0003",
+    "patient_ref": "P-0024",
+    "patient_age_band": "50-59",
+    "patient_sex": "M",
+    "date_of_service": "2026-01-20",
+    "provider": {
+      "name": "Dr. Calista Moreau",
+      "specialty": "Orthopedics"
+    },
+    "place_of_service": "11",
+    "cpt": "99213",
+    "modifiers": [],
+    "icd10": [
+      "M25.511"
+    ],
+    "units": 1,
+    "billed_amount": 107.4,
+    "clinical_note": "Established patient with right shoulder pain with overhead reaching for 7 weeks. Exam shows tenderness over the joint and a painful arc. A corticosteroid injection was performed at this visit."
+  },
+  {
+    "claim_id": "V2-0004",
+    "patient_ref": "P-0036",
+    "patient_age_band": "70+",
+    "patient_sex": "F",
+    "date_of_service": "2026-03-16",
+    "provider": {
+      "name": "Dr. Bram Oduya",
+      "specialty": "Orthopedics"
+    },
+    "place_of_service": "22",
+    "cpt": "29881",
+    "modifiers": [],
+    "icd10": [
+      "M23.222"
+    ],
+    "units": 1,
+    "billed_amount": 2870.56,
+    "clinical_note": "MRI shows a posterior horn medial meniscus tear of the left knee with mechanical catching, after 6 weeks of conservative care without relief. Arthroscopic partial meniscectomy was performed and the patient tolerated it well."
+  },
+  {
+    "claim_id": "V2-0005",
+    "patient_ref": "P-0020",
+    "patient_age_band": "40-49",
+    "patient_sex": "M",
+    "date_of_service": "2026-01-28",
+    "provider": {
+      "name": "Dr. Calista Moreau",
+      "specialty": "Orthopedics"
+    },
+    "place_of_service": "22",
+    "cpt": "73721",
+    "modifiers": [],
+    "icd10": [
+      "M25.561"
+    ],
+    "units": 1,
+    "billed_amount": 560.65,
+    "clinical_note": "Twisting injury 5 days ago with a locked knee that cannot fully extend. No therapy was tried given the acute presentation. MRI was ordered for a suspected displaced meniscal tear."
+  },
+  {
+    "claim_id": "V2-0006",
+    "patient_ref": "P-0005",
+    "patient_age_band": "40-49",
+    "patient_sex": "M",
+    "date_of_service": "2026-02-18",
+    "provider": {
+      "name": "Dr. Nadia Castellanos",
+      "specialty": "Physical Medicine and Rehabilitation"
+    },
+    "place_of_service": "11",
+    "cpt": "97110",
+    "modifiers": [],
+    "icd10": [
+      "M25.562"
+    ],
+    "units": 3,
+    "billed_amount": 116.73,
+    "clinical_note": "Supervised therapeutic exercise for knee strengthening, visit 8 of 12 in the current episode. Functional goal is to climb a flight of stairs without pain and the patient can now manage 8 steps. Session lasted 45 minutes."
+  },
+  {
+    "claim_id": "V2-0007",
+    "patient_ref": "P-0033",
+    "patient_age_band": "18-39",
+    "patient_sex": "F",
+    "date_of_service": "2026-02-07",
+    "provider": {
+      "name": "Dr. Dev Raghunathan",
+      "specialty": "Internal Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "99215",
+    "modifiers": [],
+    "icd10": [
+      "J06.9"
+    ],
+    "units": 1,
+    "billed_amount": 223.41,
+    "clinical_note": "Established patient seen for sore throat and congestion for 5 days. No fever, and the ears and chest are unremarkable. Advised rest, fluids and over the counter symptom relief."
+  },
+  {
+    "claim_id": "V2-0008",
+    "patient_ref": "P-0025",
+    "patient_age_band": "50-59",
+    "patient_sex": "M",
+    "date_of_service": "2026-01-28",
+    "provider": {
+      "name": "Dr. Bram Oduya",
+      "specialty": "Orthopedics"
+    },
+    "place_of_service": "22",
+    "cpt": "73721",
+    "modifiers": [],
+    "icd10": [
+      "M25.561"
+    ],
+    "units": 1,
+    "billed_amount": 643.54,
+    "clinical_note": "Established patient with knee pain for about 4 weeks after increased walking. No physical therapy, bracing or medication has been tried to date. Exam shows mild joint line tenderness with stable ligaments, and a knee MRI was requested."
+  },
+  {
+    "claim_id": "V2-0009",
+    "patient_ref": "P-0015",
+    "patient_age_band": "50-59",
+    "patient_sex": "F",
+    "date_of_service": "2026-01-13",
+    "provider": {
+      "name": "Dr. Bram Oduya",
+      "specialty": "Orthopedics"
+    },
+    "place_of_service": "22",
+    "cpt": "29881",
+    "modifiers": [],
+    "icd10": [
+      "M23.222"
+    ],
+    "units": 1,
+    "billed_amount": 2568.28,
+    "clinical_note": "MRI shows diffuse cartilage loss and joint space narrowing consistent with degenerative joint disease. No discrete meniscal tear was identified. Arthroscopic debridement and partial meniscectomy performed for chronic activity related pain."
+  },
+  {
+    "claim_id": "V2-0010",
+    "patient_ref": "P-0003",
+    "patient_age_band": "50-59",
+    "patient_sex": "F",
+    "date_of_service": "2026-01-08",
+    "provider": {
+      "name": "Dr. Bram Oduya",
+      "specialty": "Orthopedics"
+    },
+    "place_of_service": "22",
+    "cpt": "29881",
+    "modifiers": [],
+    "icd10": [
+      "M23.251"
+    ],
+    "units": 1,
+    "billed_amount": 2553.51,
+    "clinical_note": "Imaging demonstrates osteophytes, joint space narrowing and degenerative fraying only, with no tear documented. Arthroscopy with partial meniscectomy done for persistent pain unresponsive to 3 injections."
+  },
+  {
+    "claim_id": "V2-0011",
+    "patient_ref": "P-0018",
+    "patient_age_band": "18-39",
+    "patient_sex": "M",
+    "date_of_service": "2026-01-25",
+    "provider": {
+      "name": "Dr. Imogen Hartwell",
+      "specialty": "Family Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "99215",
+    "modifiers": [],
+    "icd10": [
+      "Z00.00"
+    ],
+    "units": 1,
+    "billed_amount": 243.63,
+    "clinical_note": "Annual wellness visit with no new complaints. Vitals and physical exam are normal and screening labs were reviewed. Counseled on diet and exercise."
+  },
+  {
+    "claim_id": "V2-0012",
+    "patient_ref": "P-0046",
+    "patient_age_band": "18-39",
+    "patient_sex": "F",
+    "date_of_service": "2026-03-25",
+    "provider": {
+      "name": "Dr. Nadia Castellanos",
+      "specialty": "Physical Medicine and Rehabilitation"
+    },
+    "place_of_service": "11",
+    "cpt": "97110",
+    "modifiers": [],
+    "icd10": [
+      "M54.50"
+    ],
+    "units": 6,
+    "billed_amount": 236.7,
+    "clinical_note": "Supervised therapeutic exercise for knee strengthening, visit 6 of 12 in the current episode. Functional goal is to climb a flight of stairs without pain and the patient can now manage 7 steps. Session lasted 90 minutes."
+  },
+  {
+    "claim_id": "V2-0013",
+    "patient_ref": "P-0010",
+    "patient_age_band": "40-49",
+    "patient_sex": "M",
+    "date_of_service": "2026-03-04",
+    "provider": {
+      "name": "Dr. Dev Raghunathan",
+      "specialty": "Internal Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "99214",
+    "modifiers": [],
+    "icd10": [
+      "I10"
+    ],
+    "units": 1,
+    "billed_amount": 149.59,
+    "clinical_note": "Established patient seen for hypertension follow up. Home readings average 133/84 with no chest pain or headaches. Current medication continued and a recheck is planned in 3 months."
+  },
+  {
+    "claim_id": "V2-0014",
+    "patient_ref": "P-0049",
+    "patient_age_band": "40-49",
+    "patient_sex": "F",
+    "date_of_service": "2026-01-08",
+    "provider": {
+      "name": "Dr. Wren Lindqvist",
+      "specialty": "Cardiology"
+    },
+    "place_of_service": "11",
+    "cpt": "93000",
+    "modifiers": [],
+    "icd10": [
+      "I10"
+    ],
+    "units": 1,
+    "billed_amount": 52.01,
+    "clinical_note": "ECG obtained for hypertension with occasional palpitations. Sinus rhythm at 84 beats per minute with no acute changes."
+  },
+  {
+    "claim_id": "V2-0015",
+    "patient_ref": "P-0010",
+    "patient_age_band": "40-49",
+    "patient_sex": "M",
+    "date_of_service": "2026-03-25",
+    "provider": {
+      "name": "Dr. Dev Raghunathan",
+      "specialty": "Internal Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "99214",
+    "modifiers": [],
+    "icd10": [
+      "I10"
+    ],
+    "units": 1,
+    "billed_amount": 146.87,
+    "clinical_note": "Established patient seen for hypertension follow up. Home readings average 132/87 with no chest pain or headaches. Current medication continued and a recheck is planned in 6 months."
+  },
+  {
+    "claim_id": "V2-0016",
+    "patient_ref": "P-0028",
+    "patient_age_band": "40-49",
+    "patient_sex": "F",
+    "date_of_service": "2026-03-31",
+    "provider": {
+      "name": "Dr. Dev Raghunathan",
+      "specialty": "Internal Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "80053",
+    "modifiers": [],
+    "icd10": [
+      "E11.9"
+    ],
+    "units": 1,
+    "billed_amount": 164.94,
+    "clinical_note": "Comprehensive metabolic panel ordered to monitor diabetes and kidney function. Patient was fasting and reports no new symptoms."
+  },
+  {
+    "claim_id": "V2-0017",
+    "patient_ref": "P-0006",
+    "patient_age_band": "18-39",
+    "patient_sex": "M",
+    "date_of_service": "2026-01-16",
+    "provider": {
+      "name": "Dr. Bram Oduya",
+      "specialty": "Orthopedics"
+    },
+    "place_of_service": "22",
+    "cpt": "73721",
+    "modifiers": [],
+    "icd10": [
+      "M25.561"
+    ],
+    "units": 1,
+    "billed_amount": 642.55,
+    "clinical_note": "Knee pain for 11 weeks despite 7 weeks of supervised physical therapy and daily anti-inflammatory medication. Exam shows joint line tenderness. MRI was ordered to evaluate for internal derangement."
+  },
+  {
+    "claim_id": "V2-0018",
+    "patient_ref": "P-0023",
+    "patient_age_band": "40-49",
+    "patient_sex": "F",
+    "date_of_service": "2026-02-19",
+    "provider": {
+      "name": "Dr. Imogen Hartwell",
+      "specialty": "Family Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "99216",
+    "modifiers": [],
+    "icd10": [
+      "J06.9"
+    ],
+    "units": 1,
+    "billed_amount": 258.82,
+    "clinical_note": "Established patient seen for sore throat and congestion for 3 days. Vitals are normal and the lungs are clear. Supportive care and fluids advised."
+  },
+  {
+    "claim_id": "V2-0019",
+    "patient_ref": "P-0043",
+    "patient_age_band": "60-69",
+    "patient_sex": "M",
+    "date_of_service": "2026-01-24",
+    "provider": {
+      "name": "Dr. Dev Raghunathan",
+      "specialty": "Internal Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "99214",
+    "modifiers": [],
+    "icd10": [
+      "I10"
+    ],
+    "units": 1,
+    "billed_amount": 182.86,
+    "clinical_note": "Established patient seen for hypertension follow up. Home readings average 134/87 with no chest pain or headaches. Current medication continued and a recheck is planned in 3 months."
+  },
+  {
+    "claim_id": "V2-0020",
+    "patient_ref": "P-0054",
+    "patient_age_band": "18-39",
+    "patient_sex": "M",
+    "date_of_service": "2026-03-13",
+    "provider": {
+      "name": "Dr. Wren Lindqvist",
+      "specialty": "Cardiology"
+    },
+    "place_of_service": "11",
+    "cpt": "93000",
+    "modifiers": [],
+    "icd10": [
+      "I10"
+    ],
+    "units": 1,
+    "billed_amount": 148.13,
+    "clinical_note": "ECG obtained for hypertension with occasional palpitations. Sinus rhythm at 85 beats per minute with no acute changes."
+  },
+  {
+    "claim_id": "V2-0021",
+    "patient_ref": "P-0014",
+    "patient_age_band": "18-39",
+    "patient_sex": "M",
+    "date_of_service": "2026-02-03",
+    "provider": {
+      "name": "Dr. Dev Raghunathan",
+      "specialty": "Internal Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "99213",
+    "modifiers": [],
+    "icd10": [
+      "E11.9",
+      "M17.99"
+    ],
+    "units": 1,
+    "billed_amount": 93.2,
+    "clinical_note": "Established patient seen for diabetes follow up. A1c is 6.7 on current therapy with no episodes of low blood sugar. Diet and activity counseling provided."
+  },
+  {
+    "claim_id": "V2-0022",
+    "patient_ref": "P-0004",
+    "patient_age_band": "50-59",
+    "patient_sex": "M",
+    "date_of_service": "2026-01-02",
+    "provider": {
+      "name": "Dr. Calista Moreau",
+      "specialty": "Orthopedics"
+    },
+    "place_of_service": "22",
+    "cpt": "73721",
+    "modifiers": [],
+    "icd10": [
+      "M25.569"
+    ],
+    "units": 1,
+    "billed_amount": 563.56,
+    "clinical_note": "Knee pain for 11 weeks despite 8 weeks of supervised physical therapy and daily anti-inflammatory medication. Exam shows joint line tenderness. MRI was ordered to evaluate for internal derangement."
+  },
+  {
+    "claim_id": "V2-0023",
+    "patient_ref": "P-0007",
+    "patient_age_band": "70+",
+    "patient_sex": "F",
+    "date_of_service": "2026-01-11",
+    "provider": {
+      "name": "Dr. Imogen Hartwell",
+      "specialty": "Family Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "99213",
+    "modifiers": [],
+    "icd10": [
+      "J06.9"
+    ],
+    "units": 1,
+    "billed_amount": 99.55,
+    "clinical_note": "Established patient seen for cough and nasal congestion for 3 days. Vitals are normal and the lungs are clear. Supportive care and fluids advised."
+  },
+  {
+    "claim_id": "V2-0024",
+    "patient_ref": "P-0034",
+    "patient_age_band": "18-39",
+    "patient_sex": "F",
+    "date_of_service": "2026-03-09",
+    "provider": {
+      "name": "Dr. Dev Raghunathan",
+      "specialty": "Internal Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "96372",
+    "modifiers": [],
+    "icd10": [
+      "J45.909"
+    ],
+    "units": 1,
+    "billed_amount": 35.11,
+    "clinical_note": "Intramuscular injection given in clinic for wheeze. Patient observed for 20 minutes with improvement."
+  },
+  {
+    "claim_id": "V2-0025",
+    "patient_ref": "P-0024",
+    "patient_age_band": "50-59",
+    "patient_sex": "M",
+    "date_of_service": "2026-01-20",
+    "provider": {
+      "name": "Dr. Calista Moreau",
+      "specialty": "Orthopedics"
+    },
+    "place_of_service": "11",
+    "cpt": "20610",
+    "modifiers": [],
+    "icd10": [
+      "M25.511"
+    ],
+    "units": 1,
+    "billed_amount": 119.76,
+    "clinical_note": "Right shoulder joint injected with corticosteroid after consent and skin preparation. Patient tolerated the procedure and had no immediate complications."
+  },
+  {
+    "claim_id": "V2-0026",
+    "patient_ref": "P-0038",
+    "patient_age_band": "40-49",
+    "patient_sex": "F",
+    "date_of_service": "2026-01-08",
+    "provider": {
+      "name": "Dr. Wren Lindqvist",
+      "specialty": "Cardiology"
+    },
+    "place_of_service": "11",
+    "cpt": "99215",
+    "modifiers": [],
+    "icd10": [
+      "I50.9"
+    ],
+    "units": 1,
+    "billed_amount": 291.0,
+    "clinical_note": "Established patient with heart failure reports worsening shortness of breath and ankle swelling over 4 days. Exam shows crackles at both lung bases and 2+ leg edema, with weight up 4 pounds. Diuretic dose increased and extended counseling on fluid restriction provided, with labs ordered."
+  },
+  {
+    "claim_id": "V2-0027",
+    "patient_ref": "P-0041",
+    "patient_age_band": "60-69",
+    "patient_sex": "F",
+    "date_of_service": "2026-02-21",
+    "provider": {
+      "name": "Dr. Calista Moreau",
+      "specialty": "Orthopedics"
+    },
+    "place_of_service": "22",
+    "cpt": "29881",
+    "modifiers": [
+      "RT"
+    ],
+    "icd10": [
+      "M23.221"
+    ],
+    "units": 1,
+    "billed_amount": 2138.2,
+    "clinical_note": "MRI shows a posterior horn medial meniscus tear of the right knee with mechanical catching, after 7 weeks of conservative care without relief. Arthroscopic partial meniscectomy was performed and the patient tolerated it well."
+  },
+  {
+    "claim_id": "V2-0028",
+    "patient_ref": "P-0030",
+    "patient_age_band": "70+",
+    "patient_sex": "F",
+    "date_of_service": "2026-03-03",
+    "provider": {
+      "name": "Dr. Calista Moreau",
+      "specialty": "Orthopedics"
+    },
+    "place_of_service": "22",
+    "cpt": "73721",
+    "modifiers": [],
+    "icd10": [
+      "M25.561"
+    ],
+    "units": 1,
+    "billed_amount": 467.29,
+    "clinical_note": "Twisting injury 3 days ago with a locked knee that cannot fully extend. No therapy was tried given the acute presentation. MRI was ordered for a suspected displaced meniscal tear."
+  },
+  {
+    "claim_id": "V2-0029",
+    "patient_ref": "P-0027",
+    "patient_age_band": "18-39",
+    "patient_sex": "F",
+    "date_of_service": "2026-01-31",
+    "provider": {
+      "name": "Dr. Dev Raghunathan",
+      "specialty": "Internal Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "99215",
+    "modifiers": [],
+    "icd10": [
+      "N18.4"
+    ],
+    "units": 1,
+    "billed_amount": 226.02,
+    "clinical_note": "Established patient with stage 4 chronic kidney disease seen for lab review. eGFR is 26 with a rising potassium, and medications were adjusted for kidney function. Extended counseling on diet and kidney replacement planning provided."
+  },
+  {
+    "claim_id": "V2-0030",
+    "patient_ref": "P-0016",
+    "patient_age_band": "18-39",
+    "patient_sex": "F",
+    "date_of_service": "2026-01-22",
+    "provider": {
+      "name": "Dr. Dev Raghunathan",
+      "specialty": "Internal Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "80053",
+    "modifiers": [],
+    "icd10": [
+      "E11.9"
+    ],
+    "units": 1,
+    "billed_amount": 52.2,
+    "clinical_note": "Comprehensive metabolic panel ordered to monitor diabetes and kidney function. Patient was fasting and reports no new symptoms."
+  },
+  {
+    "claim_id": "V2-0031",
+    "patient_ref": "P-0021",
+    "patient_age_band": "70+",
+    "patient_sex": "F",
+    "date_of_service": "2026-02-24",
+    "provider": {
+      "name": "Dr. Calista Moreau",
+      "specialty": "Orthopedics"
+    },
+    "place_of_service": "11",
+    "cpt": "J3301",
+    "modifiers": [],
+    "icd10": [
+      "M25.511"
+    ],
+    "units": 12,
+    "billed_amount": 71.28,
+    "clinical_note": "Triamcinolone 40 mg injected for a flare of right shoulder tendinopathy. Patient tolerated the injection without complication."
+  },
+  {
+    "claim_id": "V2-0032",
+    "patient_ref": "P-0034",
+    "patient_age_band": "18-39",
+    "patient_sex": "F",
+    "date_of_service": "2026-03-09",
+    "provider": {
+      "name": "Dr. Dev Raghunathan",
+      "specialty": "Internal Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "99214",
+    "modifiers": [
+      "25"
+    ],
+    "icd10": [
+      "J45.909"
+    ],
+    "units": 1,
+    "billed_amount": 173.58,
+    "clinical_note": "Separate evaluation today of worsening wheeze for 5 days, with a full respiratory exam and review of controller medication. An injection was given in clinic during the same visit."
+  },
+  {
+    "claim_id": "V2-0033",
+    "patient_ref": "P-0009",
+    "patient_age_band": "50-59",
+    "patient_sex": "F",
+    "date_of_service": "2026-01-12",
+    "provider": {
+      "name": "Dr. Bram Oduya",
+      "specialty": "Orthopedics"
+    },
+    "place_of_service": "22",
+    "cpt": "29881",
+    "modifiers": [],
+    "icd10": [
+      "M17.11"
+    ],
+    "units": 1,
+    "billed_amount": 2563.92,
+    "clinical_note": "Right knee pain and swelling. Arthroscopy was performed under regional anesthesia and tolerated well."
+  },
+  {
+    "claim_id": "V2-0034",
+    "patient_ref": "P-0039",
+    "patient_age_band": "70+",
+    "patient_sex": "M",
+    "date_of_service": "2026-02-21",
+    "provider": {
+      "name": "Dr. Imogen Hartwell",
+      "specialty": "Family Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "99213",
+    "modifiers": [],
+    "icd10": [
+      "J06.9"
+    ],
+    "units": 1,
+    "billed_amount": 108.2,
+    "clinical_note": "Established patient seen for cough and nasal congestion for 6 days. Afebrile with clear lungs and a mildly red throat. Supportive care and fluids advised."
+  },
+  {
+    "claim_id": "V2-0035",
+    "patient_ref": "P-0019",
+    "patient_age_band": "18-39",
+    "patient_sex": "F",
+    "date_of_service": "2026-03-03",
+    "provider": {
+      "name": "Dr. Bram Oduya",
+      "specialty": "Orthopedics"
+    },
+    "place_of_service": "22",
+    "cpt": "29881",
+    "modifiers": [],
+    "icd10": [
+      "M23.222"
+    ],
+    "units": 1,
+    "billed_amount": 2138.26,
+    "clinical_note": "MRI shows a posterior horn medial meniscus tear of the left knee with mechanical catching, after 7 weeks of conservative care without relief. Arthroscopic partial meniscectomy was performed and the patient tolerated it well."
+  },
+  {
+    "claim_id": "V2-0036",
+    "patient_ref": "P-0047",
+    "patient_age_band": "60-69",
+    "patient_sex": "M",
+    "date_of_service": "2026-03-08",
+    "provider": {
+      "name": "Dr. Dev Raghunathan",
+      "specialty": "Internal Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "99213",
+    "modifiers": [],
+    "icd10": [
+      "I10"
+    ],
+    "units": 1,
+    "billed_amount": 111.58,
+    "clinical_note": "Established patient seen for hypertension follow up. Home readings average 129/81 with no chest pain or headaches. Current medication continued and a recheck is planned in 6 months."
+  },
+  {
+    "claim_id": "V2-0037",
+    "patient_ref": "P-0008",
+    "patient_age_band": "70+",
+    "patient_sex": "F",
+    "date_of_service": "2026-01-28",
+    "provider": {
+      "name": "Dr. Dev Raghunathan",
+      "specialty": "Internal Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "99214",
+    "modifiers": [],
+    "icd10": [
+      "E11.9"
+    ],
+    "units": 1,
+    "billed_amount": 137.8,
+    "clinical_note": "Established patient seen for diabetes follow up. A1c is 7.6 on current therapy with no episodes of low blood sugar. Diet and activity counseling provided."
+  },
+  {
+    "claim_id": "V2-0038",
+    "patient_ref": "P-0022",
+    "patient_age_band": "50-59",
+    "patient_sex": "M",
+    "date_of_service": "2026-01-09",
+    "provider": {
+      "name": "Dr. Dev Raghunathan",
+      "specialty": "Internal Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "71046",
+    "modifiers": [],
+    "icd10": [
+      "J06.9"
+    ],
+    "units": 1,
+    "billed_amount": 92.49,
+    "clinical_note": "Chest x-ray with two views obtained for cough and low grade fever for 8 days. No focal consolidation seen."
+  },
+  {
+    "claim_id": "V2-0039",
+    "patient_ref": "P-0053",
+    "patient_age_band": "60-69",
+    "patient_sex": "F",
+    "date_of_service": "2026-01-01",
+    "provider": {
+      "name": "Dr. Imogen Hartwell",
+      "specialty": "Family Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "71046",
+    "modifiers": [],
+    "icd10": [
+      "J06.9"
+    ],
+    "units": 1,
+    "billed_amount": 83.01,
+    "clinical_note": "Chest x-ray with two views obtained for cough and low grade fever for 6 days. No focal consolidation seen."
+  },
+  {
+    "claim_id": "V2-0040",
+    "patient_ref": "P-0051",
+    "patient_age_band": "40-49",
+    "patient_sex": "M",
+    "date_of_service": "2026-03-07",
+    "provider": {
+      "name": "Dr. Bram Oduya",
+      "specialty": "Orthopedics"
+    },
+    "place_of_service": "22",
+    "cpt": "29881",
+    "modifiers": [],
+    "icd10": [
+      "M23.251",
+      "M17.11"
+    ],
+    "units": 1,
+    "billed_amount": 2216.42,
+    "clinical_note": "MRI confirms a posterior horn lateral meniscus tear with locking episodes. Mild osteoarthritis is also present but is not the reason for surgery. Arthroscopic partial meniscectomy performed."
+  },
+  {
+    "claim_id": "V2-0041",
+    "patient_ref": "P-0029",
+    "patient_age_band": "50-59",
+    "patient_sex": "F",
+    "date_of_service": "2026-01-31",
+    "provider": {
+      "name": "Dr. Imogen Hartwell",
+      "specialty": "Family Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "99213",
+    "modifiers": [],
+    "icd10": [
+      "I10"
+    ],
+    "units": 1,
+    "billed_amount": 99.95,
+    "clinical_note": "Established patient seen for hypertension follow up. Home readings average 129/86 with no chest pain or headaches. Current medication continued and a recheck is planned in 3 months."
+  },
+  {
+    "claim_id": "V2-0042",
+    "patient_ref": "P-0045",
+    "patient_age_band": "60-69",
+    "patient_sex": "F",
+    "date_of_service": "2026-03-18",
+    "provider": {
+      "name": "Dr. Dev Raghunathan",
+      "specialty": "Internal Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "36415",
+    "modifiers": [],
+    "icd10": [
+      "E11.9"
+    ],
+    "units": 1,
+    "billed_amount": 18.1,
+    "clinical_note": "Blood draw for fasting labs related to diabetes follow up. No complications."
+  },
+  {
+    "claim_id": "V2-0043",
+    "patient_ref": "P-0008",
+    "patient_age_band": "70+",
+    "patient_sex": "F",
+    "date_of_service": "2026-01-07",
+    "provider": {
+      "name": "Dr. Dev Raghunathan",
+      "specialty": "Internal Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "99214",
+    "modifiers": [],
+    "icd10": [
+      "E11.9"
+    ],
+    "units": 1,
+    "billed_amount": 170.5,
+    "clinical_note": "Established patient seen for diabetes follow up. A1c is 7.4 on current therapy with no episodes of low blood sugar. Diet and activity counseling provided."
+  },
+  {
+    "claim_id": "V2-0044",
+    "patient_ref": "P-0011",
+    "patient_age_band": "40-49",
+    "patient_sex": "F",
+    "date_of_service": "2026-01-09",
+    "provider": {
+      "name": "Dr. Imogen Hartwell",
+      "specialty": "Family Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "99214",
+    "modifiers": [],
+    "icd10": [
+      "J45.909"
+    ],
+    "units": 1,
+    "billed_amount": 134.84,
+    "clinical_note": "Established patient seen for asthma follow up. Symptoms are well controlled with 1 rescue inhaler uses in the past month. Inhaler technique reviewed and the controller medication continued."
+  },
+  {
+    "claim_id": "V2-0045",
+    "patient_ref": "P-0050",
+    "patient_age_band": "70+",
+    "patient_sex": "M",
+    "date_of_service": "2026-02-10",
+    "provider": {
+      "name": "Dr. Calista Moreau",
+      "specialty": "Orthopedics"
+    },
+    "place_of_service": "22",
+    "cpt": "29881",
+    "modifiers": [],
+    "icd10": [
+      "M23.252"
+    ],
+    "units": 1,
+    "billed_amount": 2923.12,
+    "clinical_note": "MRI shows diffuse cartilage loss and joint space narrowing consistent with degenerative joint disease. No discrete meniscal tear was identified. Arthroscopic debridement and partial meniscectomy performed for chronic activity related pain."
+  },
+  {
+    "claim_id": "V2-0046",
+    "patient_ref": "P-0001",
+    "patient_age_band": "70+",
+    "patient_sex": "F",
+    "date_of_service": "2026-02-06",
+    "provider": {
+      "name": "Dr. Nadia Castellanos",
+      "specialty": "Physical Medicine and Rehabilitation"
+    },
+    "place_of_service": "11",
+    "cpt": "97110",
+    "modifiers": [],
+    "icd10": [
+      "M25.561"
+    ],
+    "units": 6,
+    "billed_amount": 285.6,
+    "clinical_note": "Supervised therapeutic exercise for knee strengthening, visit 6 of 12 in the current episode. Functional goal is to climb a flight of stairs without pain and the patient can now manage 6 steps. Session lasted 90 minutes."
+  },
+  {
+    "claim_id": "V2-0047",
+    "patient_ref": "P-0044",
+    "patient_age_band": "60-69",
+    "patient_sex": "M",
+    "date_of_service": "2026-01-07",
+    "provider": {
+      "name": "Dr. Dev Raghunathan",
+      "specialty": "Internal Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "99213",
+    "modifiers": [],
+    "icd10": [
+      "E78.5"
+    ],
+    "units": 1,
+    "billed_amount": 417.05,
+    "clinical_note": "Established patient seen to review cholesterol management. Fasting lipid panel from 1 months ago reviewed with the patient. Diet changes discussed and the statin continued."
+  },
+  {
+    "claim_id": "V2-0048",
+    "patient_ref": "P-0017",
+    "patient_age_band": "70+",
+    "patient_sex": "F",
+    "date_of_service": "2026-03-16",
+    "provider": {
+      "name": "Dr. Bram Oduya",
+      "specialty": "Orthopedics"
+    },
+    "place_of_service": "22",
+    "cpt": "73721",
+    "modifiers": [],
+    "icd10": [
+      "M25.561"
+    ],
+    "units": 1,
+    "billed_amount": 532.09,
+    "clinical_note": "Recent onset knee pain, started 4 weeks ago. Conservative treatment has not yet been started. Exam is unremarkable apart from a small effusion, and an MRI was ordered at the patient's request."
+  },
+  {
+    "claim_id": "V2-0049",
+    "patient_ref": "P-0031",
+    "patient_age_band": "70+",
+    "patient_sex": "F",
+    "date_of_service": "2026-01-22",
+    "provider": {
+      "name": "Dr. Dev Raghunathan",
+      "specialty": "Internal Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "99213",
+    "modifiers": [],
+    "icd10": [
+      "I10",
+      "I1O"
+    ],
+    "units": 1,
+    "billed_amount": 117.13,
+    "clinical_note": "Established patient seen for hypertension follow up. Home readings average 139/76 with no chest pain or headaches. Current medication continued and a recheck is planned in 3 months."
+  },
+  {
+    "claim_id": "V2-0050",
+    "patient_ref": "P-0037",
+    "patient_age_band": "50-59",
+    "patient_sex": "M",
+    "date_of_service": "2026-01-21",
+    "provider": {
+      "name": "Dr. Nadia Castellanos",
+      "specialty": "Physical Medicine and Rehabilitation"
+    },
+    "place_of_service": "11",
+    "cpt": "97110",
+    "modifiers": [],
+    "icd10": [
+      "M25.561"
+    ],
+    "units": 4,
+    "billed_amount": 165.88,
+    "clinical_note": "Supervised therapeutic exercise for knee strengthening, visit 6 of 12 in the current episode. Functional goal is to climb a flight of stairs without pain and the patient can now manage 9 steps. Session lasted 60 minutes."
+  },
+  {
+    "claim_id": "V2-0051",
+    "patient_ref": "P-0040",
+    "patient_age_band": "40-49",
+    "patient_sex": "M",
+    "date_of_service": "2026-03-11",
+    "provider": {
+      "name": "Dr. Imogen Hartwell",
+      "specialty": "Family Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "99214",
+    "modifiers": [],
+    "icd10": [
+      "M54.50"
+    ],
+    "units": 1,
+    "billed_amount": 136.59,
+    "clinical_note": "Low back pain for 4 days after lifting, with no leg weakness or numbness. Exam shows paraspinal tenderness and normal strength. Stretching and ibuprofen advised."
+  },
+  {
+    "claim_id": "V2-0052",
+    "patient_ref": "P-0029",
+    "patient_age_band": "50-59",
+    "patient_sex": "F",
+    "date_of_service": "2026-02-06",
+    "provider": {
+      "name": "Dr. Imogen Hartwell",
+      "specialty": "Family Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "99213",
+    "modifiers": [],
+    "icd10": [
+      "I10"
+    ],
+    "units": 1,
+    "billed_amount": 102.29,
+    "clinical_note": "Established patient seen for hypertension follow up. Home readings average 129/86 with no chest pain or headaches. Current medication continued and a recheck is planned in 3 months."
+  },
+  {
+    "claim_id": "V2-0053",
+    "patient_ref": "P-0013",
+    "patient_age_band": "60-69",
+    "patient_sex": "F",
+    "date_of_service": "2026-03-12",
+    "provider": {
+      "name": "Dr. Calista Moreau",
+      "specialty": "Orthopedics"
+    },
+    "place_of_service": "22",
+    "cpt": "73721",
+    "modifiers": [],
+    "icd10": [
+      "M25.562"
+    ],
+    "units": 1,
+    "billed_amount": 633.19,
+    "clinical_note": "Established patient with knee pain for about 4 weeks after increased walking. No physical therapy, bracing or medication has been tried to date. Exam shows mild joint line tenderness with stable ligaments, and a knee MRI was requested."
+  },
+  {
+    "claim_id": "V2-0054",
+    "patient_ref": "P-0012",
+    "patient_age_band": "70+",
+    "patient_sex": "M",
+    "date_of_service": "2026-03-28",
+    "provider": {
+      "name": "Dr. Wren Lindqvist",
+      "specialty": "Cardiology"
+    },
+    "place_of_service": "11",
+    "cpt": "93000",
+    "modifiers": [],
+    "icd10": [
+      "R07.9"
+    ],
+    "units": 1,
+    "billed_amount": 27.23,
+    "clinical_note": "ECG obtained for chest discomfort. Normal sinus rhythm with no ST segment changes."
+  },
+  {
+    "claim_id": "V2-0055",
+    "patient_ref": "P-0042",
+    "patient_age_band": "18-39",
+    "patient_sex": "F",
+    "date_of_service": "2026-03-26",
+    "provider": {
+      "name": "Dr. Calista Moreau",
+      "specialty": "Orthopedics"
+    },
+    "place_of_service": "22",
+    "cpt": "29881",
+    "modifiers": [],
+    "icd10": [
+      "M23.229"
+    ],
+    "units": 1,
+    "billed_amount": 2249.4,
+    "clinical_note": "MRI shows a posterior horn medial meniscus tear with mechanical catching, after 9 weeks of conservative care without relief. Arthroscopic partial meniscectomy was performed and the patient tolerated it well."
+  },
+  {
+    "claim_id": "V2-0056",
+    "patient_ref": "P-0048",
+    "patient_age_band": "18-39",
+    "patient_sex": "F",
+    "date_of_service": "2026-01-08",
+    "provider": {
+      "name": "Dr. Calista Moreau",
+      "specialty": "Orthopedics"
+    },
+    "place_of_service": "11",
+    "cpt": "J3301",
+    "modifiers": [],
+    "icd10": [
+      "M25.511"
+    ],
+    "units": 8,
+    "billed_amount": 54.24,
+    "clinical_note": "Triamcinolone 80 mg injected for a flare of right shoulder tendinopathy. Patient tolerated the injection without complication."
+  },
+  {
+    "claim_id": "V2-0057",
+    "patient_ref": "P-0002",
+    "patient_age_band": "18-39",
+    "patient_sex": "M",
+    "date_of_service": "2026-03-11",
+    "provider": {
+      "name": "Dr. Calista Moreau",
+      "specialty": "Orthopedics"
+    },
+    "place_of_service": "22",
+    "cpt": "29881",
+    "modifiers": [],
+    "icd10": [
+      "M23.221"
+    ],
+    "units": 1,
+    "billed_amount": 2664.51,
+    "clinical_note": "Long standing knee pain in a patient with advanced degenerative changes on weight bearing films. Imaging does not show a focal tear. Partial meniscectomy performed to address ongoing pain."
+  },
+  {
+    "claim_id": "V2-0058",
+    "patient_ref": "P-0026",
+    "patient_age_band": "70+",
+    "patient_sex": "M",
+    "date_of_service": "2026-03-04",
+    "provider": {
+      "name": "Dr. Imogen Hartwell",
+      "specialty": "Family Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "71046",
+    "modifiers": [],
+    "icd10": [
+      "M54.50"
+    ],
+    "units": 1,
+    "billed_amount": 67.72,
+    "clinical_note": "Chest x-ray with two views obtained during a routine visit. Patient also reports ongoing low back pain."
+  },
+  {
+    "claim_id": "V2-0059",
+    "patient_ref": "P-0047",
+    "patient_age_band": "60-69",
+    "patient_sex": "M",
+    "date_of_service": "2026-02-28",
+    "provider": {
+      "name": "Dr. Dev Raghunathan",
+      "specialty": "Internal Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "99213",
+    "modifiers": [],
+    "icd10": [
+      "I10"
+    ],
+    "units": 1,
+    "billed_amount": 103.4,
+    "clinical_note": "Established patient seen for hypertension follow up. Home readings average 129/81 with no chest pain or headaches. Current medication continued and a recheck is planned in 6 months."
+  },
+  {
+    "claim_id": "V2-0060",
+    "patient_ref": "P-0032",
+    "patient_age_band": "18-39",
+    "patient_sex": "F",
+    "date_of_service": "2026-02-22",
+    "provider": {
+      "name": "Dr. Dev Raghunathan",
+      "specialty": "Internal Medicine"
+    },
+    "place_of_service": "11",
+    "cpt": "99215",
+    "modifiers": [],
+    "icd10": [
+      "I50.9"
+    ],
+    "units": 1,
+    "billed_amount": 291.0,
+    "clinical_note": "Established patient with heart failure reports worsening shortness of breath and ankle swelling over 4 days. Exam shows crackles at both lung bases and 2+ leg edema, with weight up 4 pounds. Diuretic dose increased and extended counseling on fluid restriction provided, with labs ordered."
+  }
+]
