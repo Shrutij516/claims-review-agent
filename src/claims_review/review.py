@@ -95,7 +95,10 @@ def _pending_payload(snapshot) -> dict | None:
 
 def start_review(claim_dict: dict, llm, store: list[ParsedClaim], saver: SqliteSaver,
                  tables: CodeTables | None = None) -> dict:
-    """Run the agent on a claim and pause for a human. The thread_id is the claim_id."""
+    """Run the agent on a claim and pause for a human. The thread_id is the claim_id.
+
+    Returns the pause payload and the agent_result (the finalize result, trace included).
+    """
     thread_id = claim_dict.get("claim_id") if isinstance(claim_dict, dict) else None
     if not isinstance(thread_id, str) or not thread_id.strip():
         raise ValueError("the claim has no claim_id, so a review cannot be started for it")
@@ -108,18 +111,23 @@ def start_review(claim_dict: dict, llm, store: list[ParsedClaim], saver: SqliteS
     payload = _pending_payload(graph.get_state(config))
     if payload is None:
         raise RuntimeError(f"review of claim {thread_id} did not pause for a human")
-    return {"thread_id": thread_id, "status": "awaiting_review", "payload": payload}
+    agent_result = graph.get_state(config).values["result"]
+    return {"thread_id": thread_id, "status": "awaiting_review", "payload": payload, "agent_result": agent_result}
 
 
 def get_review(thread_id: str, saver: SqliteSaver) -> dict:
-    """Read a review without running anything: not_found, awaiting_review (payload) or completed (record)."""
+    """Read a review without running anything.
+
+    not_found; awaiting_review (payload for the reviewer plus the stored agent_result with its trace);
+    completed (record); or incomplete (a checkpoint exists but the run never reached the pause).
+    """
     config = _config(thread_id)
     if saver.get_tuple(config) is None:
         return {"status": "not_found"}
     snapshot = _inspect_graph(saver).get_state(config)
     payload = _pending_payload(snapshot)
     if payload is not None:
-        return {"status": "awaiting_review", "payload": payload}
+        return {"status": "awaiting_review", "payload": payload, "agent_result": snapshot.values["result"]}
     if "record" in snapshot.values:
         return {"status": "completed", "record": snapshot.values["record"]}
     return {"status": "incomplete"}

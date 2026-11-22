@@ -3,3 +3,6 @@ rank_bm25
 langgraph
 langgraph-checkpoint-sqlite
 groq
+fastapi
+uvicorn
+httpx

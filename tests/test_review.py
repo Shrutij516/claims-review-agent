@@ -61,7 +61,10 @@ def test_start_review_pauses_with_a_payload_that_matches_the_agent_result(saver)
     for key in payload:
         assert payload[key] == expected[key], key
     assert payload["recommended_action"] == "flag" and len(llm.calls) == 2
-    assert get_review("T-EM", saver) == {"status": "awaiting_review", "payload": payload}
+    assert out["agent_result"] == expected
+    assert [t["node"] for t in out["agent_result"]["trace"]] == list(NODES)
+    assert get_review("T-EM", saver) == {"status": "awaiting_review", "payload": payload,
+                                         "agent_result": out["agent_result"]}
 
 
 # ------------------------------------------------------------------ actions
@@ -154,7 +157,8 @@ def test_restart_a_new_saver_and_a_fresh_graph_can_finish_the_review(db):
         warnings.simplefilter("error")          # no serialization warnings on a checkpoint round trip
         second = open_saver(db)
         try:
-            assert get_review("T-EM", second) == {"status": "awaiting_review", "payload": started["payload"]}
+            assert get_review("T-EM", second) == {"status": "awaiting_review", "payload": started["payload"],
+                                                  "agent_result": started["agent_result"]}
             record = submit_review("T-EM", APPROVE, second, now=lambda: FIXED_TIME)
         finally:
             close_saver(second)
