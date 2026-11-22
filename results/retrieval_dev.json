@@ -1,0 +1,106 @@
+{
+  "split": "dev",
+  "claims_evaluated": 12,
+  "a_criterion_top3_plain": {
+    "gold": 14,
+    "found": 8,
+    "complete": 6,
+    "recall": 0.5714285714285714
+  },
+  "b_policy_top2_plain": {
+    "gold_policies": 12,
+    "found_policies": 10,
+    "policies_complete": 10,
+    "gold_criteria": 14,
+    "covered_criteria": 12,
+    "criteria_complete": 10,
+    "policy_recall": 0.8333333333333334,
+    "criterion_coverage": 0.8571428571428571
+  },
+  "c_policy_top2_flag_aware": {
+    "gold_policies": 12,
+    "found_policies": 11,
+    "policies_complete": 11,
+    "gold_criteria": 14,
+    "covered_criteria": 13,
+    "criteria_complete": 11,
+    "policy_recall": 0.9166666666666666,
+    "criterion_coverage": 0.9285714285714286
+  },
+  "selection_rule": "use (c) only if policy recall@2 is strictly higher than (b), else (b)",
+  "selected_variant": "c",
+  "misses": {
+    "a": [
+      [
+        "V2-0006",
+        [
+          "POL-008.2"
+        ]
+      ],
+      [
+        "V2-0012",
+        [
+          "POL-005.1"
+        ]
+      ],
+      [
+        "V2-0015",
+        [
+          "POL-004.3"
+        ]
+      ],
+      [
+        "V2-0022",
+        [
+          "POL-003.4"
+        ]
+      ],
+      [
+        "V2-0051",
+        [
+          "POL-002.2"
+        ]
+      ],
+      [
+        "V2-0052",
+        [
+          "POL-004.1"
+        ]
+      ]
+    ],
+    "b": [
+      [
+        "V2-0015",
+        [
+          "POL-004"
+        ],
+        [
+          "POL-001",
+          "POL-002"
+        ]
+      ],
+      [
+        "V2-0052",
+        [
+          "POL-004"
+        ],
+        [
+          "POL-001",
+          "POL-002"
+        ]
+      ]
+    ],
+    "c": [
+      [
+        "V2-0015",
+        [
+          "POL-004"
+        ],
+        [
+          "POL-001",
+          "POL-002"
+        ]
+      ]
+    ]
+  }
+}

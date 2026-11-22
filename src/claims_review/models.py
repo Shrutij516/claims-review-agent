@@ -59,6 +59,23 @@ class Hit:
 
 
 @dataclass(frozen=True)
+class Policy:
+    """A whole policy: id, title and every criterion as (criterion_id, text) in order."""
+    policy_id: str
+    title: str
+    criteria: tuple[tuple[str, str], ...]
+
+
+@dataclass(frozen=True)
+class PolicyHit:
+    """A retrieved whole policy with its BM25 score."""
+    policy_id: str
+    title: str
+    score: float
+    criteria: tuple[tuple[str, str], ...]
+
+
+@dataclass(frozen=True)
 class ClaimResult:
     """Decision for one claim: Flagged, Clear or Error (never dropped)."""
     claim_id: str

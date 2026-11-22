@@ -1,4 +1,4 @@
-"""BM25 retrieval over one chunk per numbered policy criterion."""
+"""BM25 retrieval over policy criteria (one chunk each) and over whole policies (one document each)."""
 import re
 from functools import lru_cache
 from pathlib import Path
@@ -6,7 +6,9 @@ from pathlib import Path
 from rank_bm25 import BM25Okapi
 
 from claims_review import POLICY_DIR
-from claims_review.models import Chunk, Hit
+from claims_review.codes import CodeTables, load_tables
+from claims_review.models import Chunk, Flag, Hit, ParsedClaim, Policy, PolicyHit
+from claims_review.rules import load_catalog
 
 STOPWORDS = frozenset(
     "a an and are as at be been by for from has have in is it its of on or that the this to was were will with".split()
@@ -68,3 +70,78 @@ def retrieve(query: str, k: int = 3, index: Index | None = None) -> list[Hit]:
 def get_criterion(criterion_id: str, index: Index | None = None) -> Chunk | None:
     """Look up a criterion by id, for citation checks."""
     return (index or build_index()).get(criterion_id)
+
+
+# ------------------------------------------------------------------ whole-policy retrieval
+def _criterion_number(criterion_id: str) -> int:
+    return int(criterion_id.rsplit(".", 1)[1])
+
+
+def load_policies(policy_dir: Path | None = None) -> list[Policy]:
+    """One Policy per policy file, with every criterion in numeric order, sorted by policy id."""
+    grouped: dict[str, list[Chunk]] = {}
+    for c in load_chunks(policy_dir):
+        grouped.setdefault(c.policy_id, []).append(c)
+    return [Policy(pid, chunks[0].title,
+                   tuple((c.criterion_id, c.text) for c in sorted(chunks, key=lambda c: _criterion_number(c.criterion_id))))
+            for pid, chunks in sorted(grouped.items())]
+
+
+class PolicyIndex:
+    """A BM25 index with one document per whole policy (title plus all criteria text)."""
+
+    def __init__(self, policies: list[Policy]):
+        if not policies:
+            raise ValueError("cannot build an index with no policies")
+        self.policies = list(policies)
+        self._by_id = {p.policy_id: p for p in self.policies}
+        docs = [tokenize(p.title + " " + " ".join(text for _, text in p.criteria)) for p in self.policies]
+        self._bm25 = BM25Okapi(docs)
+
+    def get(self, policy_id: str) -> Policy:
+        """Return a policy by id, or raise ValueError naming the known ids."""
+        try:
+            return self._by_id[policy_id]
+        except KeyError:
+            raise ValueError(f"unknown policy id '{policy_id}'; known ids: {', '.join(sorted(self._by_id))}") from None
+
+    def search(self, query: str, k: int) -> list[PolicyHit]:
+        """Top k positive-score policies; ties are broken by policy id."""
+        scores = self._bm25.get_scores(tokenize(query))
+        ranked = sorted(zip(self.policies, scores), key=lambda p: (-float(p[1]), p[0].policy_id))
+        return [PolicyHit(p.policy_id, p.title, float(s), p.criteria) for p, s in ranked[:k] if s > 0]
+
+
+@lru_cache(maxsize=None)
+def build_policy_index(policy_dir: Path | None = None) -> PolicyIndex:
+    """Build (and cache) the whole-policy index over the policy files."""
+    return PolicyIndex(load_policies(policy_dir))
+
+
+def retrieve_policies(query: str, k: int = 2, index: PolicyIndex | None = None) -> list[PolicyHit]:
+    """Return up to k whole policies for a query, best first, each with all its criteria in order."""
+    return (index or build_policy_index()).search(query, k)
+
+
+def get_policy(policy_id: str, index: PolicyIndex | None = None) -> Policy:
+    """Look up a whole policy by id; raises ValueError for an unknown id."""
+    return (index or build_policy_index()).get(policy_id)
+
+
+def make_query(claim: ParsedClaim, flags: list[Flag] | None = None, tables: CodeTables | None = None) -> str:
+    """Retrieval query: procedure label, diagnosis labels and clinical note.
+
+    When flags are given, each flag id and its catalog description are appended.
+    """
+    tables = tables or load_tables()
+    proc = tables.cpt.get(claim.cpt) or tables.hcpcs.get(claim.cpt) or {}
+    parts = [proc.get("short_desc", "")]
+    parts += [tables.icd10[i]["short_desc"] for i in claim.icd10 if i in tables.icd10]
+    parts.append(claim.clinical_note)
+    if flags:
+        descriptions = {f["flag_id"]: f["description"] for f in load_catalog()["flags"]}
+        for flag in flags:
+            if flag.flag_id not in descriptions:
+                raise ValueError(f"flag id '{flag.flag_id}' is not in the flag catalog")
+            parts += [flag.flag_id, descriptions[flag.flag_id]]
+    return " ".join(p for p in parts if p)

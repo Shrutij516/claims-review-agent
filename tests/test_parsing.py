@@ -63,6 +63,10 @@ def test_missing_claim_id_message_says_so():
     ({"billed_amount": "100"}, "billed_amount"),
     ({"billed_amount": True}, "billed_amount"),
     ({"billed_amount": -1}, "billed_amount"),
+    ({"billed_amount": 0}, "billed_amount"),
+    ({"billed_amount": 0.0}, "billed_amount"),
+    ({"billed_amount": -math.inf}, "billed_amount"),
+    ({"units": -3}, "units"),
     ({"billed_amount": math.nan}, "billed_amount"),
     ({"billed_amount": math.inf}, "billed_amount"),
     ({"clinical_note": None}, "clinical_note"),
@@ -72,6 +76,11 @@ def test_bad_values_raise_with_claim_id_and_field_name(override, field):
         parse_claim(raw(**override))
     assert "T-0001" in str(err.value)
     assert field in str(err.value)
+
+
+def test_smallest_valid_units_and_amount_are_accepted():
+    p = parse_claim(raw(units=1, billed_amount=0.01))
+    assert p.units == 1 and p.billed_amount == 0.01
 
 
 def test_missing_optional_looking_fields_are_still_required():

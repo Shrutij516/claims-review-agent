@@ -59,8 +59,8 @@ def parse_claim(raw: dict) -> ParsedClaim:
         raise ClaimParseError(f"{label}: field 'units' must be a whole number of at least 1")
     billed = raw.get("billed_amount")
     if (not isinstance(billed, (int, float)) or isinstance(billed, bool)
-            or not math.isfinite(billed) or billed < 0):
-        raise ClaimParseError(f"{label}: field 'billed_amount' must be a finite number, zero or more")
+            or not math.isfinite(billed) or billed <= 0):
+        raise ClaimParseError(f"{label}: field 'billed_amount' must be a positive finite number")
 
     note = raw.get("clinical_note")
     if not isinstance(note, str):

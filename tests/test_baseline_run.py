@@ -1,3 +1,4 @@
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -41,6 +42,18 @@ def test_cross_claim_rules_still_work_when_another_claim_failed():
     assert [f.flag_id for f in results["A-2"].flags] == ["R_DUPLICATE_CLAIM"]
 
 
+def test_zero_units_and_zero_amount_never_reach_the_rules(monkeypatch):
+    import claims_review.baseline as baseline
+
+    def must_not_run(claim, store):
+        raise AssertionError("rule_flags was called on an invalid claim")
+
+    monkeypatch.setattr(baseline, "rule_flags", must_not_run)
+    results = run_rules_only([raw(claim_id="Z-1", units=0), raw(claim_id="Z-2", billed_amount=0)])
+    assert [r.decision for r in results] == ["Error", "Error"]
+    assert "units" in results[0].error and "billed_amount" in results[1].error
+
+
 def test_empty_input_gives_empty_output():
     assert run_rules_only([]) == []
 
@@ -81,4 +94,8 @@ def test_eval_retrieval_dev_runs():
     out = _run("eval_retrieval.py", "--split", "dev")
     assert out.returncode == 0, out.stderr
     assert "BM25 RETRIEVAL, split=dev" in out.stdout
+    for label in ("(a) criterion level", "(b) whole policy", "(c) whole policy", "SELECTION RULE (D21)"):
+        assert label in out.stdout
+    saved = json.loads((ROOT / "results" / "retrieval_dev.json").read_text(encoding="utf-8"))
+    assert saved["split"] == "dev" and saved["selected_variant"] in ("b", "c")
 

@@ -236,3 +236,20 @@ def test_rule_flags_match_expected_flags_on_all_60_claims():
 
 def test_tables_are_shared_not_reloaded_per_call():
     assert load_tables() is load_tables()
+
+
+def test_split_restricted_store_gives_same_flags_as_full_store():
+    """Scripts use only one split's claims as the store; that must not change any rule flag."""
+    claims = _all_claims()
+    gts = {g["claim_id"]: g for g in
+           json.loads((ROOT / "data" / "v2" / "ground_truth.json").read_text(encoding="utf-8"))}
+    by_split = {s: [c for c in claims if gts[c.claim_id]["split"] == s] for s in ("dev", "test")}
+    assert len(by_split["dev"]) == 20 and len(by_split["test"]) == 40
+    failures = []
+    for claim in claims:
+        own = by_split[gts[claim.claim_id]["split"]]
+        full = [(f.flag_id, f.detail, f.evidence) for f in rule_flags(claim, claims)]
+        restricted = [(f.flag_id, f.detail, f.evidence) for f in rule_flags(claim, own)]
+        if full != restricted:
+            failures.append((claim.claim_id, full, restricted))
+    assert failures == []
