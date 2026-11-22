@@ -187,6 +187,35 @@ def test_em_level_against_diagnosis_tier(cpt, icd, billed, flagged):
     assert ("R_EM_LEVEL_VS_DX" in flag_ids(make(cpt=cpt, icd10=icd, billed_amount=billed))) is flagged
 
 
+def _em_policy_ids(claim, params=None):
+    flags = [f for f in rule_flags(claim, [claim], params=params) if f.flag_id == "R_EM_LEVEL_VS_DX"]
+    assert len(flags) == 1
+    return [e["id"] for e in flags[0].evidence if e["kind"] == "policy"]
+
+
+@pytest.mark.parametrize("cpt, icd, billed", [
+    ("99214", ["J06.9"], 150.0),    # minor illness at level 99214
+    ("99215", ["Z00.00"], 250.0),   # routine exam at level 99215
+    ("99214", ["M54.50"], 150.0),
+])
+def test_em_flag_with_tier_1_diagnosis_at_99214_or_99215_cites_pol_002_2_and_002_4(cpt, icd, billed):
+    assert _em_policy_ids(make(cpt=cpt, icd10=icd, billed_amount=billed)) == ["POL-002.2", "POL-002.4"]
+
+
+def test_em_flag_with_tier_2_diagnosis_cites_only_pol_002_2():
+    # 99215 with a tier 2 diagnosis (I10) really flags; 002.4 is for routine or minor diagnoses only.
+    assert _em_policy_ids(make(cpt="99215", icd10=["I10"], billed_amount=250.0)) == ["POL-002.2"]
+
+
+def test_em_flag_at_99214_with_tier_2_or_higher_diagnosis_does_not_cite_pol_002_4():
+    # With the real thresholds a 99214 visit with a tier 2 diagnosis does not flag, so raise the
+    # required tier for 99214 to 3 to force a flag and check the evidence.
+    from claims_review.rules import load_params
+    params = {**load_params(), "em_min_tier": {**load_params()["em_min_tier"], "99214": 3}}
+    assert _em_policy_ids(make(cpt="99214", icd10=["I10"], billed_amount=150.0), params) == ["POL-002.2"]
+    assert _em_policy_ids(make(cpt="99214", icd10=["M54.50", "I10"], billed_amount=150.0), params) == ["POL-002.2"]
+
+
 def test_em_rule_does_not_apply_to_non_visit_codes():
     assert "R_EM_LEVEL_VS_DX" not in flag_ids(make(cpt="80053", icd10=["J06.9"], billed_amount=40.0))
 

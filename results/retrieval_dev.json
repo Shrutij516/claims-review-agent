@@ -2,30 +2,30 @@
   "split": "dev",
   "claims_evaluated": 12,
   "a_criterion_top3_plain": {
-    "gold": 14,
-    "found": 8,
+    "gold": 15,
+    "found": 9,
     "complete": 6,
-    "recall": 0.5714285714285714
+    "recall": 0.6
   },
   "b_policy_top2_plain": {
     "gold_policies": 12,
     "found_policies": 10,
     "policies_complete": 10,
-    "gold_criteria": 14,
-    "covered_criteria": 12,
+    "gold_criteria": 15,
+    "covered_criteria": 13,
     "criteria_complete": 10,
     "policy_recall": 0.8333333333333334,
-    "criterion_coverage": 0.8571428571428571
+    "criterion_coverage": 0.8666666666666667
   },
   "c_policy_top2_flag_aware": {
     "gold_policies": 12,
     "found_policies": 11,
     "policies_complete": 11,
-    "gold_criteria": 14,
-    "covered_criteria": 13,
+    "gold_criteria": 15,
+    "covered_criteria": 14,
     "criteria_complete": 11,
     "policy_recall": 0.9166666666666666,
-    "criterion_coverage": 0.9285714285714286
+    "criterion_coverage": 0.9333333333333333
   },
   "selection_rule": "use (c) only if policy recall@2 is strictly higher than (b), else (b)",
   "selected_variant": "c",

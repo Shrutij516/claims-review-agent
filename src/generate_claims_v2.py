@@ -381,7 +381,7 @@ def build_specs(r):
           units=6, flags=["R_UNITS_EXCEEDED"], evidence=[F("R_UNITS_EXCEEDED"), P("POL-005.1"), P("POL-005.2")]))
     add(S("dev", "anomaly", "99214", ["M54.50"], "fm", n_back(r),
           "Level 4 visit with only a tier 1 diagnosis.",
-          flags=["R_EM_LEVEL_VS_DX"], evidence=[F("R_EM_LEVEL_VS_DX"), P("POL-002.2"), C("M54.50")]))
+          flags=["R_EM_LEVEL_VS_DX"], evidence=[F("R_EM_LEVEL_VS_DX"), P("POL-002.2"), P("POL-002.4"), C("M54.50")]))
     add(S("dev", "anomaly", "73721", ["M25.569"], "or1", n_mri_with_therapy(r, "supervised"),
           "Knee MRI with no side given by a modifier or by the diagnosis code.",
           flags=["R_LATERALITY_MISSING"], evidence=[F("R_LATERALITY_MISSING"), P("POL-003.4"), C("M25.569")]))

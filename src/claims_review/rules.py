@@ -29,14 +29,18 @@ def load_params() -> dict:
     return load_catalog()["parameters"]
 
 
-def policy_criteria_for(flag_id: str, cpt: str, tables: CodeTables) -> list[str]:
-    """Criterion ids that explain a flag for this procedure code (the catalog only lists policy ids)."""
+def policy_criteria_for(flag_id: str, cpt: str, tables: CodeTables, best_tier: int | None = None) -> list[str]:
+    """Criterion ids that explain a flag for this procedure code (the catalog only lists policy ids).
+
+    best_tier is the highest diagnosis tier on the claim; it only matters for R_EM_LEVEL_VS_DX.
+    """
     if flag_id == "R_DUPLICATE_CLAIM":
         return ["POL-004.1"]
     if flag_id == "R_MOD25_MISSING":
         return ["POL-006.1"]
     if flag_id == "R_EM_LEVEL_VS_DX":
-        return ["POL-002.2"]
+        # POL-002.4 (routine or minor illness) is approximated by tier 1 on a level 99214 or 99215 visit.
+        return ["POL-002.2", "POL-002.4"] if best_tier == 1 and cpt in ("99214", "99215") else ["POL-002.2"]
     if flag_id == "R_LATERALITY_MISSING":
         return ["POL-003.4"] if cpt == "73721" else ["POL-001.2"]
     if flag_id == "R_DX_NOT_SUPPORTING":
@@ -50,9 +54,10 @@ def policy_criteria_for(flag_id: str, cpt: str, tables: CodeTables) -> list[str]
     return []
 
 
-def _make_flag(flag_id: str, detail: str, cpt: str, tables: CodeTables, extra: list[dict] | None = None) -> Flag:
+def _make_flag(flag_id: str, detail: str, cpt: str, tables: CodeTables, extra: list[dict] | None = None,
+               best_tier: int | None = None) -> Flag:
     evidence = [{"kind": "flag", "id": flag_id}]
-    evidence += [{"kind": "policy", "id": c} for c in policy_criteria_for(flag_id, cpt, tables)]
+    evidence += [{"kind": "policy", "id": c} for c in policy_criteria_for(flag_id, cpt, tables, best_tier)]
     evidence += extra or []
     return Flag(flag_id=flag_id, detail=detail, evidence=evidence)
 
@@ -141,6 +146,7 @@ def rule_flags(parsed: ParsedClaim, store: list[ParsedClaim],
         tiers = [params["icd_tier"][c.code] for c in valid_icds if c.code in params["icd_tier"]]
         if tiers and max(tiers) < needed:
             found["R_EM_LEVEL_VS_DX"] = _make_flag(
-                "R_EM_LEVEL_VS_DX", f"Level needs tier {needed}, highest diagnosis tier is {max(tiers)}", cpt, tables)
+                "R_EM_LEVEL_VS_DX", f"Level needs tier {needed}, highest diagnosis tier is {max(tiers)}", cpt, tables,
+                best_tier=max(tiers))
 
     return [found[f] for f in RULE_FLAG_IDS if f in found]
