@@ -24,6 +24,8 @@ import generate_claims_v2 as gen  # noqa: E402
 
 DETECTION = {"R_A": "rule", "R_B": "rule", "P_X": "policy_reading", "P_Y": "policy_reading"}
 NO_FLAGS = json.dumps({"flags": []})
+EXPECTED_BASELINE_LABEL = ("rules only, no LLM. Rule-flag scores are at ceiling by construction (D22); "
+                           "it cannot raise policy_reading flags, so its decision accuracy and flag recall are lower.")
 
 
 def gt(cid, flags=(), split="dev"):
@@ -331,6 +333,15 @@ def test_output_schema():
     assert out["agent"]["per_run"][1]["errors"] == 1
     assert out["agent"]["summary"]["decision_accuracy"] == {"mean": 0.5, "min": 0.0, "max": 1.0, "n_defined": 2}
     base = out["rules_only_baseline"]
-    assert base["label"] == BASELINE_LABEL == "at ceiling by construction (D22)"
+    assert base["label"] == BASELINE_LABEL == EXPECTED_BASELINE_LABEL
     assert base["decision_accuracy"] == 1.0 and base["rule_recall"] == 1.0 and base["errors"] == 0
     assert "retries_used" not in base
+
+
+def test_baseline_block_in_build_output_carries_the_exact_label():
+    claims = [raw(claim_id="A", patient_ref="P-1")]
+    _, gts = split_records(claims, [gt("A")], "dev")
+    out = build_output(split="dev", model="fake-llm", temperature=0, runs_results=[[res("A")]], gts=gts,
+                       claims=claims, detection={}, commit="abc123")
+    assert out["rules_only_baseline"]["label"] == EXPECTED_BASELINE_LABEL
+    assert EXPECTED_BASELINE_LABEL == "rules only, no LLM. Rule-flag scores are at ceiling by construction (D22); it cannot raise policy_reading flags, so its decision accuracy and flag recall are lower."

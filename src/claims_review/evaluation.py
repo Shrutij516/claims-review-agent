@@ -21,7 +21,8 @@ from typing import Callable
 from claims_review.baseline import run_rules_only
 from claims_review.metrics import compute_metrics
 
-BASELINE_LABEL = "at ceiling by construction (D22)"
+BASELINE_LABEL = ("rules only, no LLM. Rule-flag scores are at ceiling by construction (D22); "
+                  "it cannot raise policy_reading flags, so its decision accuracy and flag recall are lower.")
 SCHEMA_VERSION = 1
 SUMMARY_KEYS = ("decision_accuracy", "flag_precision", "flag_recall",
                 "policy_reading_precision", "policy_reading_recall", "rule_precision", "rule_recall",
