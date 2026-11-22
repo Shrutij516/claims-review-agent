@@ -1,0 +1,270 @@
+{
+  "schema_version": 1,
+  "split": "dev",
+  "claim_count": 20,
+  "runs": 3,
+  "model": "openai/gpt-oss-120b",
+  "temperature": 0,
+  "date_utc": "2026-11-22T23:54:15+00:00",
+  "git_commit": "ff8eca4d3913f5eb2c49ccc67befe46928687a46",
+  "agent": {
+    "per_run": [
+      {
+        "claims": 20,
+        "decision_accuracy": 1.0,
+        "decision_confusion": {
+          "tp": 9,
+          "fp": 0,
+          "tn": 11,
+          "fn": 0
+        },
+        "errors": 0,
+        "error_claim_ids": [],
+        "flag_precision": 0.9,
+        "flag_recall": 1.0,
+        "flag_counts": {
+          "tp": 9,
+          "fp": 1,
+          "fn": 0
+        },
+        "policy_reading_precision": 0.6666666666666666,
+        "policy_reading_recall": 1.0,
+        "policy_reading_counts": {
+          "tp": 2,
+          "fp": 1,
+          "fn": 0
+        },
+        "rule_precision": 1.0,
+        "rule_recall": 1.0,
+        "rule_counts": {
+          "tp": 7,
+          "fp": 0,
+          "fn": 0
+        },
+        "judge_flags_rejected": 0,
+        "retries_used": 1,
+        "template_fallbacks": 0,
+        "per_claim": {
+          "V2-0033": {
+            "missed": [],
+            "false_positive": [
+              "P_DEGENERATIVE_ONLY"
+            ]
+          }
+        }
+      },
+      {
+        "claims": 20,
+        "decision_accuracy": 0.95,
+        "decision_confusion": {
+          "tp": 8,
+          "fp": 0,
+          "tn": 11,
+          "fn": 1
+        },
+        "errors": 1,
+        "error_claim_ids": [
+          "V2-0053"
+        ],
+        "flag_precision": 0.8888888888888888,
+        "flag_recall": 0.8888888888888888,
+        "flag_counts": {
+          "tp": 8,
+          "fp": 1,
+          "fn": 1
+        },
+        "policy_reading_precision": 0.5,
+        "policy_reading_recall": 0.5,
+        "policy_reading_counts": {
+          "tp": 1,
+          "fp": 1,
+          "fn": 1
+        },
+        "rule_precision": 1.0,
+        "rule_recall": 1.0,
+        "rule_counts": {
+          "tp": 7,
+          "fp": 0,
+          "fn": 0
+        },
+        "judge_flags_rejected": 0,
+        "retries_used": 1,
+        "template_fallbacks": 0,
+        "per_claim": {
+          "V2-0033": {
+            "missed": [],
+            "false_positive": [
+              "P_DEGENERATIVE_ONLY"
+            ]
+          },
+          "V2-0053": {
+            "missed": [
+              "P_NO_CONSERVATIVE_THERAPY"
+            ],
+            "false_positive": []
+          }
+        }
+      },
+      {
+        "claims": 20,
+        "decision_accuracy": 1.0,
+        "decision_confusion": {
+          "tp": 9,
+          "fp": 0,
+          "tn": 11,
+          "fn": 0
+        },
+        "errors": 0,
+        "error_claim_ids": [],
+        "flag_precision": 0.9,
+        "flag_recall": 1.0,
+        "flag_counts": {
+          "tp": 9,
+          "fp": 1,
+          "fn": 0
+        },
+        "policy_reading_precision": 0.6666666666666666,
+        "policy_reading_recall": 1.0,
+        "policy_reading_counts": {
+          "tp": 2,
+          "fp": 1,
+          "fn": 0
+        },
+        "rule_precision": 1.0,
+        "rule_recall": 1.0,
+        "rule_counts": {
+          "tp": 7,
+          "fp": 0,
+          "fn": 0
+        },
+        "judge_flags_rejected": 0,
+        "retries_used": 1,
+        "template_fallbacks": 0,
+        "per_claim": {
+          "V2-0033": {
+            "missed": [],
+            "false_positive": [
+              "P_DEGENERATIVE_ONLY"
+            ]
+          }
+        }
+      }
+    ],
+    "summary": {
+      "decision_accuracy": {
+        "mean": 0.9833333333333334,
+        "min": 0.95,
+        "max": 1.0,
+        "n_defined": 3
+      },
+      "flag_precision": {
+        "mean": 0.8962962962962964,
+        "min": 0.8888888888888888,
+        "max": 0.9,
+        "n_defined": 3
+      },
+      "flag_recall": {
+        "mean": 0.9629629629629629,
+        "min": 0.8888888888888888,
+        "max": 1.0,
+        "n_defined": 3
+      },
+      "policy_reading_precision": {
+        "mean": 0.611111111111111,
+        "min": 0.5,
+        "max": 0.6666666666666666,
+        "n_defined": 3
+      },
+      "policy_reading_recall": {
+        "mean": 0.8333333333333334,
+        "min": 0.5,
+        "max": 1.0,
+        "n_defined": 3
+      },
+      "rule_precision": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0,
+        "n_defined": 3
+      },
+      "rule_recall": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0,
+        "n_defined": 3
+      },
+      "errors": {
+        "mean": 0.3333333333333333,
+        "min": 0,
+        "max": 1,
+        "n_defined": 3
+      },
+      "judge_flags_rejected": {
+        "mean": 0.0,
+        "min": 0,
+        "max": 0,
+        "n_defined": 3
+      },
+      "retries_used": {
+        "mean": 1.0,
+        "min": 1,
+        "max": 1,
+        "n_defined": 3
+      },
+      "template_fallbacks": {
+        "mean": 0.0,
+        "min": 0,
+        "max": 0,
+        "n_defined": 3
+      }
+    }
+  },
+  "rules_only_baseline": {
+    "label": "rules only, no LLM. Rule-flag scores are at ceiling by construction (D22); it cannot raise policy_reading flags, so its decision accuracy and flag recall are lower.",
+    "claims": 20,
+    "decision_accuracy": 0.9,
+    "decision_confusion": {
+      "tp": 7,
+      "fp": 0,
+      "tn": 11,
+      "fn": 2
+    },
+    "errors": 0,
+    "error_claim_ids": [],
+    "flag_precision": 1.0,
+    "flag_recall": 0.7777777777777778,
+    "flag_counts": {
+      "tp": 7,
+      "fp": 0,
+      "fn": 2
+    },
+    "policy_reading_precision": null,
+    "policy_reading_recall": 0.0,
+    "policy_reading_counts": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 2
+    },
+    "rule_precision": 1.0,
+    "rule_recall": 1.0,
+    "rule_counts": {
+      "tp": 7,
+      "fp": 0,
+      "fn": 0
+    },
+    "per_claim": {
+      "V2-0009": {
+        "missed": [
+          "P_DEGENERATIVE_ONLY"
+        ],
+        "false_positive": []
+      },
+      "V2-0053": {
+        "missed": [
+          "P_NO_CONSERVATIVE_THERAPY"
+        ],
+        "false_positive": []
+      }
+    }
+  }
+}
