@@ -16,7 +16,9 @@ EXPLAIN_SYSTEM = (
     "You write a short explanation of a claim review for a human reviewer. Use only the flags and "
     "evidence you are given. Write at most 120 words of plain text. Cite policy criteria in square "
     "brackets, for example [POL-002.2], and cite only the criterion ids in the allowed list. Do not "
-    "mention any other policy or criterion id."
+    "mention any other policy or criterion id. A human reviewer makes the decision. Never say a claim is "
+    "denied, approved or rejected; say it was flagged for review. Use only facts that appear in the flags, "
+    "evidence and criterion text. Do not add codes, policies or numbers that are not given."
 )
 
 
