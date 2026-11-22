@@ -21,6 +21,7 @@ from claims_review import DATA_V2, ROOT
 from claims_review.codes import load_tables
 from claims_review.graph import build_store
 from claims_review.llm import GroqLLM, MissingAPIKeyError
+from claims_review.retrieval import get_criterion, get_policy
 from claims_review.review import (ReviewActionError, ReviewExistsError, close_saver, get_review, open_saver,
                                   start_review, submit_review)
 
@@ -28,6 +29,7 @@ SPLIT = "dev"
 DEFAULT_DB = "runs/checkpoints.sqlite"
 ORIGINS = ["http://localhost:5173", "http://127.0.0.1:5173"]
 NOT_FOUND = "Claim not found."
+CRITERION_NOT_FOUND = "Criterion not found."
 
 
 class ActionBody(BaseModel):
@@ -88,6 +90,15 @@ def create_app(llm_factory: Callable[[], object] | None = None, db_path: str | P
     @app.get("/health")
     def health():
         return {"status": "ok", "split": SPLIT}
+
+    @app.get("/criteria/{criterion_id}")
+    def read_criterion(criterion_id: str):
+        """Policy text for one criterion id (for example POL-001.1). Policy text only, never ground truth."""
+        chunk = get_criterion(criterion_id)
+        if chunk is None:
+            raise HTTPException(status_code=404, detail=CRITERION_NOT_FOUND)
+        return {"criterion_id": chunk.criterion_id, "policy_id": chunk.policy_id,
+                "policy_title": get_policy(chunk.policy_id).title, "text": chunk.text}
 
     @app.get("/claims")
     def list_claims():

@@ -99,6 +99,21 @@ def test_startup_and_reads_never_need_an_api_key_or_call_the_llm_factory(db, mon
     assert factory.count == 0
 
 
+def test_criterion_endpoint_returns_policy_text_for_a_known_id(db):
+    r = make_client(db).get("/criteria/POL-001.1")
+    assert r.status_code == 200
+    body = r.json()
+    assert set(body) == {"criterion_id", "policy_id", "policy_title", "text"}
+    assert body["criterion_id"] == "POL-001.1" and body["policy_id"] == "POL-001"
+    assert body["policy_title"] and body["text"].startswith("Diagnosis specificity.")
+
+
+@pytest.mark.parametrize("criterion_id", ["POL-001.99", "POL-999.1", "nope"])
+def test_criterion_endpoint_is_404_for_an_unknown_id(db, criterion_id):
+    r = make_client(db).get(f"/criteria/{criterion_id}")
+    assert r.status_code == 404 and r.json() == {"detail": "Criterion not found."}
+
+
 # ------------------------------------------------------------------ the full flow
 def test_full_review_flow_and_no_ground_truth_in_any_response(db):
     factory = Factory()
@@ -144,6 +159,8 @@ def test_full_review_flow_and_no_ground_truth_in_any_response(db):
     bodies.append(r.json())
     assert status_in_list() == "completed"
     bodies.append(client.get("/claims").json())
+    bodies.append(client.get("/criteria/POL-002.4").json())
+    bodies.append(client.get("/criteria/POL-999.1").json())
 
     for body in bodies:
         assert not (set(keys_at_any_depth(body)) & GROUND_TRUTH_KEYS), body
