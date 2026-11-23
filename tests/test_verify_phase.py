@@ -72,5 +72,65 @@ def test_tree_protected_and_secrets_in_a_tmp_repo(tmp_path):
     assert vp.check_tree(tmp_path) == "FAIL tree: 1 tracked change(s): data/x.json; 1 untracked: new.txt"
     assert vp.check_protected(tmp_path, "HEAD") == "FAIL protected: 1 protected file(s) changed since HEAD: data/x.json"
     _git(tmp_path, "add", "new.txt")
-    assert vp.check_secrets(tmp_path) == "FAIL secrets: 1 key-like match(es) in tracked files"
+    assert vp.check_secrets(tmp_path) == "FAIL secrets: 1 key-like match(es) in tracked files, 0 history commit(s)"
     assert vp.check_protected(tmp_path, "no-such-ref").startswith("FAIL protected: base no-such-ref not found")
+
+
+def _repo(tmp_path):
+    _git(tmp_path, "init", "-q")
+    _git(tmp_path, "config", "user.email", "t@example.invalid")
+    _git(tmp_path, "config", "user.name", "t")
+    return tmp_path
+
+
+def _commit(repo, name, text, message):
+    (repo / name).write_text(text)
+    _git(repo, "add", name)
+    _git(repo, "commit", "-q", "-m", message)
+
+
+def test_names_history_search_is_case_insensitive(tmp_path):
+    repo = _repo(tmp_path)
+    _commit(repo, "a.txt", "clean\n", "base")
+    assert vp.check_names(repo) == "PASS names: tracked files 0, commit messages 0, history commits 0"
+    _commit(repo, "a.txt", "X" + vp.NAME_FRAGMENT.upper() + "\n", "add")  # upper case: only -i finds it
+    _commit(repo, "a.txt", "clean\n", "remove")
+    assert vp.check_names(repo) == "FAIL names: tracked files 0, commit messages 0, history commits 2"
+
+
+def test_secrets_scan_history_too(tmp_path):
+    repo = _repo(tmp_path)
+    _commit(repo, "a.txt", "clean\n", "base")
+    assert vp.check_secrets(repo) == "PASS secrets: 0 key-like match(es) in tracked files, 0 history commit(s)"
+    _commit(repo, "a.txt", "gsk_" + "B" * 24 + "\n", "add")
+    _commit(repo, "a.txt", "clean\n", "remove")
+    assert vp.check_secrets(repo) == "FAIL secrets: 0 key-like match(es) in tracked files, 2 history commit(s)"
+
+
+def test_isolation_before_and_after_final(tmp_path):
+    results = tmp_path / "results"
+    results.mkdir()
+    (results / "eval_dev.json").write_text('{"ids": ["V2-0001"]}')
+    ids = {"V2-0099"}
+    assert vp.isolation(results, ids, False) == (
+        True, "eval_test.json exists=False; 0 of 1 other results file(s) contain a test-split id")
+    assert vp.isolation(results, ids, True)[0] is False  # after final the file must exist
+
+    final = results / "eval_test.json"
+    final.write_text(json.dumps({"split": "test", "ids": ["V2-0099"]}))  # the final file may hold test ids
+    assert vp.isolation(results, ids, False)[0] is False  # unchanged behaviour without the flag
+    assert vp.isolation(results, ids, True) == (
+        True, "eval_test.json exists=True valid_json=True split_test=True; "
+              "0 of 1 other results file(s) contain a test-split id")
+
+    final.write_text(json.dumps({"split": "dev"}))
+    assert vp.isolation(results, ids, True)[1].startswith("eval_test.json exists=True valid_json=True split_test=False")
+    final.write_text("not json")
+    assert vp.isolation(results, ids, True)[0] is False
+    final.write_text(json.dumps(["a list"]))
+    assert vp.isolation(results, ids, True)[0] is False
+
+    final.write_text(json.dumps({"split": "test"}))
+    (results / "eval_dev.json").write_text('{"ids": ["V2-0099"]}')  # a test id leaked into another file
+    ok, detail = vp.isolation(results, ids, True)
+    assert not ok and detail.endswith("1 of 1 other results file(s) contain a test-split id")

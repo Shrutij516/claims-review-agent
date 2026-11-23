@@ -2,7 +2,10 @@
 End-of-phase verification (D61). Stdlib only, deterministic, no network, no LLM.
 
 Usage:
-    .venv/bin/python scripts/verify_phase.py [--base REF]      (default origin/main)
+    .venv/bin/python scripts/verify_phase.py [--base REF] [--after-final]      (default base origin/main)
+
+--after-final is for phases after the one final test run: results/eval_test.json must then exist,
+be valid JSON and have split "test". Every other file under results/ must still hold no test-split id.
 
 Prints one line per check, "PASS name: detail" or "FAIL name: detail", and exits 0 only if every
 check passes. It prints ids, counts and file names only, never claim or ground-truth text.
@@ -141,26 +144,47 @@ def check_names(root: Path) -> str:
     grep = git(root, "grep", "-i", "-c", "-I", "-F", NAME_FRAGMENT)
     in_files = sum(int(x.rsplit(":", 1)[1]) for x in lines(grep.stdout))
     in_messages = count_ci(NAME_FRAGMENT, git(root, "log", "--all", "--format=%B").stdout)
-    in_history = len(lines(git(root, "log", "--all", "-i", "-S", NAME_FRAGMENT, "--format=%h").stdout))
+    # -G (regex form) honours -i, so the history search is case-insensitive.
+    in_history = len(lines(git(root, "log", "--all", "-i", "-G", NAME_FRAGMENT, "--format=%h").stdout))
     ok = in_files == 0 and in_messages == 0 and in_history == 0
-    return line(ok, "names", f"tracked files {in_files}, commit messages {in_messages}, pickaxe commits {in_history}")
+    return line(ok, "names", f"tracked files {in_files}, commit messages {in_messages}, history commits {in_history}")
 
 
 def check_secrets(root: Path) -> str:
-    grep = git(root, "grep", "-c", "-I", "-E", "gsk_[A-Za-z0-9]{20,}")
+    pattern = "gsk_[A-Za-z0-9]{20,}"
+    grep = git(root, "grep", "-c", "-I", "-E", pattern)
     count = sum(int(x.rsplit(":", 1)[1]) for x in lines(grep.stdout))
-    return line(count == 0, "secrets", f"{count} key-like match(es) in tracked files")
+    history = len(lines(git(root, "log", "--all", "-G", pattern, "--format=%h").stdout))
+    return line(count == 0 and history == 0, "secrets",
+                f"{count} key-like match(es) in tracked files, {history} history commit(s)")
 
 
-def check_test_isolation(root: Path) -> str:
-    results = root / "results"
-    final_exists = (results / "eval_test.json").exists()
+def isolation(results: Path, ids: set[str], after_final: bool) -> tuple[bool, str]:
+    """Before the final run eval_test.json must not exist; after it, it must exist, parse and have split test.
+    Either way no other file under results/ may contain a test-split id."""
+    final = results / "eval_test.json"
+    exists = final.is_file()
+    if after_final:
+        try:
+            split = json.loads(final.read_text(encoding="utf-8")).get("split") if exists else None
+            valid = exists
+        except (OSError, json.JSONDecodeError, AttributeError):
+            split, valid = None, False
+        final_ok = valid and split == "test"
+        final_detail = f"eval_test.json exists={exists} valid_json={valid} split_test={split == 'test'}"
+    else:
+        final_ok = not exists
+        final_detail = f"eval_test.json exists={exists}"
+    others = [p for p in sorted(results.rglob("*")) if p.is_file() and p != final] if results.exists() else []
+    hits = files_with_ids(others, ids)
+    return final_ok and hits == 0, f"{final_detail}; {hits} of {len(others)} other results file(s) contain a test-split id"
+
+
+def check_test_isolation(root: Path, after_final: bool = False) -> str:
     gts = json.loads((root / "data" / "v2" / "ground_truth.json").read_text(encoding="utf-8"))
     ids = {g["claim_id"] for g in gts if g.get("split") == "test"}
-    others = [p for p in sorted(results.rglob("*")) if p.is_file() and p.name != "eval_test.json"] if results.exists() else []
-    hits = files_with_ids(others, ids)
-    return line(not final_exists and hits == 0, "test_isolation",
-                f"eval_test.json exists={final_exists}; {hits} of {len(others)} results file(s) contain a test-split id")
+    ok, detail = isolation(root / "results", ids, after_final)
+    return line(ok, "test_isolation", detail)
 
 
 def check_numbering(root: Path) -> str:
@@ -186,11 +210,12 @@ def check_results(root: Path) -> str:
 def main(argv=None, root: Path = ROOT) -> int:
     ap = argparse.ArgumentParser(description="End-of-phase verification.")
     ap.add_argument("--base", default="origin/main")
+    ap.add_argument("--after-final", action="store_true", help="the one final test run has happened")
     args = ap.parse_args(argv)
     checks = [("head", lambda: check_head(root)), ("tree", lambda: check_tree(root)),
               ("tests", lambda: check_tests(root)), ("protected", lambda: check_protected(root, args.base)),
               ("frozen", lambda: check_frozen(root)), ("names", lambda: check_names(root)),
-              ("secrets", lambda: check_secrets(root)), ("test_isolation", lambda: check_test_isolation(root)),
+              ("secrets", lambda: check_secrets(root)), ("test_isolation", lambda: check_test_isolation(root, args.after_final)),
               ("numbering", lambda: check_numbering(root)), ("scope", lambda: check_scope(root, args.base)),
               ("results", lambda: check_results(root))]
     all_ok = True
