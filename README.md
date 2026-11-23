@@ -146,7 +146,7 @@ What went wrong on dev: V2-0033 got a false positive `P_DEGENERATIVE_ONLY` in al
 
 **Test results: pending final run.**
 
-The final test run is a single attempt on the frozen split (D57, D63). If the Groq Developer plan upgrade is unavailable on the day of the final run, the test eval uses 1 run (`--runs 1`) in a clean 24 hour window instead of 3, because the free tier allows 200K tokens per day for gpt-oss-120b and 3 runs need roughly 300K. This was decided before any test result existed (D65).
+The final test run is the one-time run on the frozen split (D57). The first launch of it was invalid and is disclosed under Honest notes (D63). If the Groq Developer plan upgrade is unavailable on the day of the final run, the test eval uses 1 run (`--runs 1`) in a clean 24 hour window instead of 3, because the free tier allows 200K tokens per day for gpt-oss-120b and 3 runs likely need more tokens than one day allows on the free tier (an estimate, not measured). This was decided before any test result existed (D65).
 
 ## Limitations
 
