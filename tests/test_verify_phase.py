@@ -113,7 +113,7 @@ def test_isolation_before_and_after_final(tmp_path):
     (results / "eval_dev.json").write_text('{"ids": ["V2-0001"]}')
     ids = {"V2-0099"}
     assert vp.isolation(results, ids, False) == (
-        True, "eval_test.json exists=False; 0 of 1 other results file(s) contain a test-split id")
+        True, "eval_test.json exists=False; eval_test_attempt1_invalid.json exists=False; 0 of 1 other results file(s) contain a test-split id")
     assert vp.isolation(results, ids, True)[0] is False  # after final the file must exist
 
     final = results / "eval_test.json"
@@ -121,7 +121,7 @@ def test_isolation_before_and_after_final(tmp_path):
     assert vp.isolation(results, ids, False)[0] is False  # unchanged behaviour without the flag
     assert vp.isolation(results, ids, True) == (
         True, "eval_test.json exists=True valid_json=True split_test=True; "
-              "0 of 1 other results file(s) contain a test-split id")
+              "eval_test_attempt1_invalid.json exists=False; 0 of 1 other results file(s) contain a test-split id")
 
     final.write_text(json.dumps({"split": "dev"}))
     assert vp.isolation(results, ids, True)[1].startswith("eval_test.json exists=True valid_json=True split_test=False")
@@ -134,3 +134,32 @@ def test_isolation_before_and_after_final(tmp_path):
     (results / "eval_dev.json").write_text('{"ids": ["V2-0099"]}')  # a test id leaked into another file
     ok, detail = vp.isolation(results, ids, True)
     assert not ok and detail.endswith("1 of 1 other results file(s) contain a test-split id")
+
+
+def test_isolation_allows_exactly_one_invalid_attempt_file(tmp_path):
+    results = tmp_path / "results"
+    results.mkdir()
+    ids = {"V2-0099"}
+    invalid = results / "eval_test_attempt1_invalid.json"
+    invalid.write_text(json.dumps({"split": "test", "ids": ["V2-0099"]}))  # may hold test ids
+    assert vp.isolation(results, ids, False) == (
+        True, "eval_test.json exists=False; eval_test_attempt1_invalid.json exists=True valid_json=True "
+              "split_test=True distinct=True; 0 of 0 other results file(s) contain a test-split id")
+    (results / "eval_test.json").write_text(json.dumps({"split": "test", "ids": ["V2-0099"]}))
+    assert vp.isolation(results, ids, True)[0] is True  # both files together after the final run
+
+    invalid.write_text(json.dumps({"split": "dev"}))
+    assert vp.isolation(results, ids, True)[0] is False  # must have split test
+    invalid.write_text("not json")
+    assert vp.isolation(results, ids, True)[0] is False  # must be valid JSON
+    invalid.write_text(json.dumps({"split": "test"}))
+
+    (results / "eval_test_attempt2_invalid.json").write_text('{"ids": ["V2-0099"]}')  # no second exception
+    ok, detail = vp.isolation(results, ids, True)
+    assert not ok and detail.endswith("1 of 1 other results file(s) contain a test-split id")
+    (results / "eval_test_attempt2_invalid.json").unlink()
+
+    (results / "eval_test.json").unlink()
+    (results / "eval_test.json").symlink_to(invalid)  # the same file under both names is refused
+    ok, detail = vp.isolation(results, ids, True)
+    assert not ok and "distinct=False" in detail

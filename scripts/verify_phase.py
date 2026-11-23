@@ -159,9 +159,29 @@ def check_secrets(root: Path) -> str:
                 f"{count} key-like match(es) in tracked files, {history} history commit(s)")
 
 
+INVALID_ATTEMPT = "eval_test_attempt1_invalid.json"
+
+
+def invalid_attempt(results: Path, final: Path) -> tuple[bool, str]:
+    """The one allowed extra file (D63): the first final attempt, kept as a disclosure. If present it must
+    be valid JSON with split test and be a different file from eval_test.json."""
+    path = results / INVALID_ATTEMPT
+    if not path.is_file():
+        return True, f"{INVALID_ATTEMPT} exists=False"
+    try:
+        split = json.loads(path.read_text(encoding="utf-8")).get("split")
+        valid = True
+    except (OSError, json.JSONDecodeError, AttributeError):
+        split, valid = None, False
+    distinct = not (final.exists() and path.samefile(final))
+    ok = valid and split == "test" and distinct
+    return ok, f"{INVALID_ATTEMPT} exists=True valid_json={valid} split_test={split == 'test'} distinct={distinct}"
+
+
 def isolation(results: Path, ids: set[str], after_final: bool) -> tuple[bool, str]:
     """Before the final run eval_test.json must not exist; after it, it must exist, parse and have split test.
-    Either way no other file under results/ may contain a test-split id."""
+    Either way no other file under results/ may contain a test-split id, except the one invalid-attempt
+    disclosure file (D63), which must be valid JSON with split test and a different file from eval_test.json."""
     final = results / "eval_test.json"
     exists = final.is_file()
     if after_final:
@@ -175,9 +195,13 @@ def isolation(results: Path, ids: set[str], after_final: bool) -> tuple[bool, st
     else:
         final_ok = not exists
         final_detail = f"eval_test.json exists={exists}"
-    others = [p for p in sorted(results.rglob("*")) if p.is_file() and p != final] if results.exists() else []
+    invalid = results / INVALID_ATTEMPT
+    invalid_ok, invalid_detail = invalid_attempt(results, final)
+    others = [p for p in sorted(results.rglob("*")) if p.is_file() and p not in (final, invalid)] \
+        if results.exists() else []
     hits = files_with_ids(others, ids)
-    return final_ok and hits == 0, f"{final_detail}; {hits} of {len(others)} other results file(s) contain a test-split id"
+    return final_ok and invalid_ok and hits == 0, \
+        f"{final_detail}; {invalid_detail}; {hits} of {len(others)} other results file(s) contain a test-split id"
 
 
 def check_test_isolation(root: Path, after_final: bool = False) -> str:

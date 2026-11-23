@@ -14,6 +14,7 @@ Metric definitions (D54):
 """
 import hashlib
 import json
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable
@@ -24,6 +25,9 @@ from claims_review.metrics import compute_metrics
 BASELINE_LABEL = ("rules only, no LLM. Rule-flag scores are at ceiling by construction (D22); "
                   "it cannot raise policy_reading flags, so its decision accuracy and flag recall are lower.")
 SCHEMA_VERSION = 1
+ABORT_AFTER_CONSECUTIVE_FAILURES = 3
+ERROR_TEXT_LIMIT = 300
+KEY_PATTERN = re.compile(r"gsk_[A-Za-z0-9]{20,}")
 SUMMARY_KEYS = ("decision_accuracy", "flag_precision", "flag_recall",
                 "policy_reading_precision", "policy_reading_recall", "rule_precision", "rule_recall",
                 "errors", "judge_flags_rejected", "retries_used", "template_fallbacks")
@@ -31,6 +35,20 @@ SUMMARY_KEYS = ("decision_accuracy", "flag_precision", "flag_recall",
 
 class EvalGuardError(RuntimeError):
     """The requested evaluation is not allowed (test split without --final, hash mismatch, or a repeat final run)."""
+
+
+class ConsecutiveFailuresError(RuntimeError):
+    """ABORT_AFTER_CONSECUTIVE_FAILURES claims in a row ended llm_failed (D64). failures holds
+    (run, claim id, sanitized error texts) for each of them, oldest first."""
+
+    def __init__(self, failures: list[tuple[int, str, list[str]]]):
+        self.failures = failures
+        super().__init__(f"{len(failures)} consecutive llm_failed claims; aborting with no results file.")
+
+
+def sanitize_errors(errors) -> list[str]:
+    """Error texts safe to store: key-like gsk_ strings replaced by [redacted], each cut to ERROR_TEXT_LIMIT chars."""
+    return [KEY_PATTERN.sub("[redacted]", str(e))[:ERROR_TEXT_LIMIT] for e in (errors or [])]
 
 
 def _ratio(num: int, den: int) -> float | None:
@@ -158,8 +176,11 @@ def score_results(results: list[dict], gts: dict[str, dict], detection: dict[str
             error_ids.append(cid)
         missed = sorted(expected[cid] - (got or set()))
         false_pos = sorted((got or set()) - expected[cid])
-        if missed or false_pos:
+        failed = by_id[cid].get("status") == "llm_failed"
+        if missed or false_pos or failed:
             per_claim[cid] = {"missed": missed, "false_positive": false_pos}
+        if failed:
+            per_claim[cid]["llm_errors"] = sanitize_errors(by_id[cid].get("errors"))
 
     return {
         "claims": len(gts),
@@ -213,10 +234,13 @@ def baseline_block(claims: list[dict], gts: dict[str, dict], detection: dict[str
 def run_split(claims: list[dict], review: Callable[[dict], dict], runs: int,
               progress: Callable[[int, str, str], None] = lambda run, cid, status: None) -> list[list[dict]]:
     """Run review() on every claim, runs times, sequentially. An exception becomes an error result
-    (status "exception"), never a dropped claim (D13). progress gets (run number, claim id, status)."""
+    (status "exception"), never a dropped claim (D13). progress gets (run number, claim id, status).
+
+    Failure guard (D64): if ABORT_AFTER_CONSECUTIVE_FAILURES claims in a row end llm_failed, counted
+    across runs, ConsecutiveFailuresError is raised and nothing is returned. Any other status resets the count."""
     if runs < 1:
         raise ValueError("runs must be at least 1")
-    all_runs = []
+    all_runs, streak = [], []
     for run in range(1, runs + 1):
         results = []
         for claim in claims:
@@ -228,6 +252,12 @@ def run_split(claims: list[dict], review: Callable[[dict], dict], runs: int,
                           "errors": [f"{type(exc).__name__}: {exc}"]}
             results.append(result)
             progress(run, result["claim_id"], result["status"])
+            if result.get("status") == "llm_failed":
+                streak.append((run, result["claim_id"], sanitize_errors(result.get("errors"))))
+                if len(streak) >= ABORT_AFTER_CONSECUTIVE_FAILURES:
+                    raise ConsecutiveFailuresError(streak[-ABORT_AFTER_CONSECUTIVE_FAILURES:])
+            else:
+                streak = []
         all_runs.append(results)
     return all_runs
 

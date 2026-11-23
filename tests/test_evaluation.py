@@ -11,6 +11,7 @@ from pathlib import Path
 
 import pytest
 
+from claims_review.evaluation import (ABORT_AFTER_CONSECUTIVE_FAILURES, ConsecutiveFailuresError, sanitize_errors)
 from claims_review.evaluation import (BASELINE_LABEL, SUMMARY_KEYS, EvalGuardError, build_output, check_guards,
                                       flag_scores, prediction, run_split, score_results, split_records, summarize)
 from claims_review.evaluation import test_split_hash as split_hash  # alias so pytest does not collect it
@@ -109,7 +110,7 @@ def test_errors_are_counted_never_dropped_and_count_as_wrong():
     assert s["flag_counts"] == {"tp": 1, "fp": 0, "fn": 1}
     assert s["rule_recall"] == 0.0 and s["rule_precision"] is None
     assert s["policy_reading_recall"] == 1.0 and s["policy_reading_precision"] == 1.0
-    assert s["per_claim"] == {"A": {"missed": ["R_A"], "false_positive": []}}
+    assert s["per_claim"] == {"A": {"missed": ["R_A"], "false_positive": [], "llm_errors": []}}  # llm_failed records its errors (D64)
 
 
 def test_a_missing_result_is_an_error_in_the_scorer_not_a_silent_drop():
@@ -309,6 +310,93 @@ def test_script_dev_run_uses_only_dev_claims(tmp_path, capsys):
     assert out["split"] == "dev" and out["claim_count"] == 1 and out["runs"] == 2
 
 
+# ------------------------------------------------------------------ failure recording and guard (D64)
+FAIL = ("not json", "still not json")  # one claim's judge fails twice, so the claim ends llm_failed
+
+
+def test_llm_failed_error_text_is_stored_truncated_and_key_redacted():
+    clean = raw(claim_id="T-CLEAN")
+    key = "gsk_" + "A1b2" * 8
+    llm = FakeLLM(RuntimeError("bad key " + key + " " + "x" * 400), RuntimeError("rate limited"))
+    [results] = run_split([clean], lambda c: run_claim(c, llm, build_store([clean])), 1)
+    assert results[0]["status"] == "llm_failed"
+    s = score_results(results, {"T-CLEAN": gt("T-CLEAN")}, {})
+    errors = s["per_claim"]["T-CLEAN"]["llm_errors"]
+    assert len(errors) == 2 and all(isinstance(e, str) for e in errors)
+    assert len(errors[0]) == 300 and "[redacted]" in errors[0] and key not in errors[0] and "gsk_" not in errors[0]
+    assert "rate limited" in errors[1]
+    out = build_output(split="dev", model="m", temperature=0, runs_results=[results],
+                       gts={"T-CLEAN": gt("T-CLEAN")}, claims=[clean], detection={}, commit="c")
+    assert key not in json.dumps(out) and out["agent"]["per_run"][0]["per_claim"]["T-CLEAN"]["llm_errors"] == errors
+
+
+def test_sanitize_errors_redacts_only_long_keys_and_cuts_to_300():
+    assert sanitize_errors(["k gsk_" + "Z" * 20 + " end", "gsk_short1", "y" * 301]) == [
+        "k [redacted] end", "gsk_short1", "y" * 300]
+    assert sanitize_errors(None) == []
+
+
+def test_ok_claims_get_no_llm_errors_entry():
+    s = score_results([res("A"), res("B", status="exception", action=None, errors=["boom"])],
+                      {"A": gt("A"), "B": gt("B", ["R_A"])}, DETECTION)
+    assert "A" not in s["per_claim"] and "llm_errors" not in s["per_claim"]["B"]
+
+
+def _scripted_review(statuses):
+    it = iter(statuses)
+    return lambda claim: res(claim["claim_id"], status=next(it), action=None, errors=["e " + claim["claim_id"]])
+
+
+def test_three_consecutive_failures_abort_counted_across_runs():
+    assert ABORT_AFTER_CONSECUTIVE_FAILURES == 3
+    claims = [{"claim_id": "A"}, {"claim_id": "B"}]
+    review = _scripted_review(["ok", "llm_failed", "llm_failed", "llm_failed", "ok", "ok"])
+    with pytest.raises(ConsecutiveFailuresError) as info:
+        run_split(claims, review, 3)
+    assert [(r, c) for r, c, _ in info.value.failures] == [(1, "B"), (2, "A"), (2, "B")]
+    assert info.value.failures[0][2] == ["e B"]
+
+
+def test_two_failures_then_success_does_not_abort_and_success_resets():
+    claims = [{"claim_id": "A"}, {"claim_id": "B"}, {"claim_id": "C"}]
+    statuses = ["llm_failed", "llm_failed", "ok", "llm_failed", "llm_failed", "exception", "llm_failed", "llm_failed", "ok"]
+    runs = run_split(claims, _scripted_review(statuses), 3)
+    assert [r["status"] for run in runs for r in run] == statuses
+
+
+def test_script_aborts_after_three_failures_and_writes_no_dev_file(tmp_path, capsys):
+    _, _, data, _, results = _fixture(tmp_path)
+    script = _load_script()
+    out_path = results / "eval_dev.json"
+    rc = script.main(["--runs", "3", "--out", str(out_path)], data_dir=data, results_dir=results,
+                     llm_factory=lambda: FakeLLM(*FAIL * 3))
+    assert rc != 0 and not out_path.exists() and not any(results.iterdir())
+    err = capsys.readouterr().err
+    assert err.count("llm_failed:") == 3 and "judge attempt 1" in err
+
+
+def test_script_final_test_run_aborts_and_creates_no_test_file(tmp_path, capsys):
+    _, _, data, sha, results = _fixture(tmp_path)
+    script = _load_script()
+    sha_before = sha.read_bytes()
+    argv = ["--split", "test", "--final", "--runs", "2", "--out", str(results / "eval_test.json")]
+    rc = script.main(argv, data_dir=data, results_dir=results, llm_factory=lambda: FakeLLM(*FAIL * 3))
+    assert rc != 0 and not (results / "eval_test.json").exists() and not any(results.iterdir())
+    assert capsys.readouterr().err.count("llm_failed:") == 3 and sha.read_bytes() == sha_before
+
+
+def test_script_two_failures_then_success_writes_the_file(tmp_path):
+    _, _, data, _, results = _fixture(tmp_path)
+    script = _load_script()
+    out_path = results / "eval_dev.json"
+    rc = script.main(["--runs", "3", "--out", str(out_path)], data_dir=data, results_dir=results,
+                     llm_factory=lambda: FakeLLM(*FAIL, *FAIL, NO_FLAGS))
+    assert rc == 0
+    out = json.loads(out_path.read_text())
+    assert [r["errors"] for r in out["agent"]["per_run"]] == [1, 1, 0]
+    assert len(out["agent"]["per_run"][0]["per_claim"]["D-1"]["llm_errors"]) == 2
+
+
 # ------------------------------------------------------------------ output schema
 def test_output_schema():
     claims = [raw(claim_id="A", patient_ref="P-1"), raw(claim_id="B", patient_ref="P-2", billed_amount=500.0)]
@@ -329,7 +417,8 @@ def test_output_schema():
     for run in out["agent"]["per_run"]:
         assert set(SUMMARY_KEYS) <= set(run)
         for cid, miss in run["per_claim"].items():
-            assert set(miss) == {"missed", "false_positive"} and cid in gts
+            assert set(miss) - {"llm_errors"} == {"missed", "false_positive"} and cid in gts
+    assert out["agent"]["per_run"][1]["per_claim"]["B"]["llm_errors"] == []
     assert out["agent"]["per_run"][1]["errors"] == 1
     assert out["agent"]["summary"]["decision_accuracy"] == {"mean": 0.5, "min": 0.0, "max": 1.0, "n_defined": 2}
     base = out["rules_only_baseline"]

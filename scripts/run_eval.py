@@ -9,7 +9,8 @@ Usage:
 Claims are reviewed sequentially with GroqLLM (GROQ_API_KEY from the environment). Only the chosen
 split's claims are used, including as the cross-claim store. One progress line is printed per claim
 (run, claim id, status) and nothing else about claims. The rules-only baseline on the same split is
-saved in the same file.
+saved in the same file. If 3 claims in a row end llm_failed (counted across runs) the run aborts,
+prints their error texts, exits 3 and writes no results file (D64).
 """
 import argparse
 import json
@@ -20,8 +21,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
-from claims_review.evaluation import (EvalGuardError, build_output, check_guards, run_split,  # noqa: E402
-                                      split_records)
+from claims_review.evaluation import (ConsecutiveFailuresError, EvalGuardError, build_output,  # noqa: E402
+                                      check_guards, run_split, split_records)
 from claims_review.graph import build_store, run_claim  # noqa: E402
 from claims_review.llm import GroqLLM, MissingAPIKeyError  # noqa: E402
 from claims_review.rules import load_catalog  # noqa: E402
@@ -84,8 +85,15 @@ def main(argv=None, data_dir: Path = V2, results_dir: Path = RESULTS, llm_factor
     store = build_store(claims)
     detection = {f["flag_id"]: f["detection"] for f in load_catalog()["flags"]}
     print(f"eval split={args.split} claims={len(claims)} runs={args.runs} model={getattr(llm, 'model', 'unknown')}")
-    runs_results = run_split(claims, lambda c: run_claim(c, llm, store), args.runs,
-                             progress=lambda run, cid, status: print(f"run {run} {cid} {status}", flush=True))
+    try:
+        runs_results = run_split(claims, lambda c: run_claim(c, llm, store), args.runs,
+                                 progress=lambda run, cid, status: print(f"run {run} {cid} {status}", flush=True))
+    except ConsecutiveFailuresError as exc:
+        # D64: a provider failure must not burn the one-time test file, so nothing is written.
+        print(str(exc), file=sys.stderr)
+        for run, cid, errors in exc.failures:
+            print(f"run {run} {cid} llm_failed: {' | '.join(errors) or '(no error text)'}", file=sys.stderr)
+        return 3
     out = build_output(split=args.split, model=getattr(llm, "model", "unknown"),
                        temperature=getattr(llm, "temperature", None), runs_results=runs_results, gts=gts,
                        claims=claims, detection=detection, commit=git_commit())
