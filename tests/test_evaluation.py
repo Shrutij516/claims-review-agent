@@ -353,13 +353,32 @@ def test_three_consecutive_failures_abort_counted_across_runs():
     review = _scripted_review(["ok", "llm_failed", "llm_failed", "llm_failed", "ok", "ok"])
     with pytest.raises(ConsecutiveFailuresError) as info:
         run_split(claims, review, 3)
-    assert [(r, c) for r, c, _ in info.value.failures] == [(1, "B"), (2, "A"), (2, "B")]
-    assert info.value.failures[0][2] == ["e B"]
+    assert [(r, c, st) for r, c, st, _ in info.value.failures] == [(1, "B", "llm_failed"), (2, "A", "llm_failed"),
+                                                                   (2, "B", "llm_failed")]
+    assert info.value.failures[0][3] == ["e B"]
+
+
+def test_three_consecutive_exceptions_abort():
+    def review(claim):
+        raise RuntimeError("down " + claim["claim_id"])
+
+    with pytest.raises(ConsecutiveFailuresError) as info:
+        run_split([{"claim_id": "A"}, {"claim_id": "B"}], review, 2)
+    assert [(r, c, st) for r, c, st, _ in info.value.failures] == [(1, "A", "exception"), (1, "B", "exception"),
+                                                                   (2, "A", "exception")]
+    assert info.value.failures[0][3] == ["RuntimeError: down A"]
+
+
+def test_mixed_llm_failed_and_exception_count_toward_one_streak():
+    claims = [{"claim_id": "A"}, {"claim_id": "B"}, {"claim_id": "C"}]
+    with pytest.raises(ConsecutiveFailuresError) as info:
+        run_split(claims, _scripted_review(["llm_failed", "exception", "llm_failed"]), 1)
+    assert [st for _, _, st, _ in info.value.failures] == ["llm_failed", "exception", "llm_failed"]
 
 
 def test_two_failures_then_success_does_not_abort_and_success_resets():
     claims = [{"claim_id": "A"}, {"claim_id": "B"}, {"claim_id": "C"}]
-    statuses = ["llm_failed", "llm_failed", "ok", "llm_failed", "llm_failed", "exception", "llm_failed", "llm_failed", "ok"]
+    statuses = ["llm_failed", "exception", "ok", "exception", "llm_failed", "parse_error", "llm_failed", "llm_failed", "ok"]
     runs = run_split(claims, _scripted_review(statuses), 3)
     assert [r["status"] for run in runs for r in run] == statuses
 
@@ -383,6 +402,26 @@ def test_script_final_test_run_aborts_and_creates_no_test_file(tmp_path, capsys)
     rc = script.main(argv, data_dir=data, results_dir=results, llm_factory=lambda: FakeLLM(*FAIL * 3))
     assert rc != 0 and not (results / "eval_test.json").exists() and not any(results.iterdir())
     assert capsys.readouterr().err.count("llm_failed:") == 3 and sha.read_bytes() == sha_before
+
+
+def test_script_aborts_after_three_exceptions_and_writes_no_file(tmp_path, capsys):
+    _, _, data, sha, results = _fixture(tmp_path)
+    script = _load_script()
+    sha_before = sha.read_bytes()
+    argv = ["--split", "test", "--final", "--runs", "2", "--out", str(results / "eval_test.json")]
+
+    def crash(claim, llm, store):  # an uncaught error in the agent becomes status "exception"
+        raise RuntimeError("graph crashed")
+
+    script.run_claim = crash
+    rc = script.main(argv, data_dir=data, results_dir=results, llm_factory=lambda: FakeLLM())
+    assert rc != 0 and not (results / "eval_test.json").exists() and not any(results.iterdir())
+    err = capsys.readouterr().err
+    assert err.count("exception: RuntimeError: graph crashed") == 3 and sha.read_bytes() == sha_before
+    dev_out = results / "eval_dev.json"
+    rc = script.main(["--runs", "3", "--out", str(dev_out)], data_dir=data, results_dir=results,
+                     llm_factory=lambda: FakeLLM())
+    assert rc != 0 and not dev_out.exists() and not any(results.iterdir())
 
 
 def test_script_two_failures_then_success_writes_the_file(tmp_path):

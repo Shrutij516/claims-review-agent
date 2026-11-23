@@ -9,7 +9,7 @@ Usage:
 Claims are reviewed sequentially with GroqLLM (GROQ_API_KEY from the environment). Only the chosen
 split's claims are used, including as the cross-claim store. One progress line is printed per claim
 (run, claim id, status) and nothing else about claims. The rules-only baseline on the same split is
-saved in the same file. If 3 claims in a row end llm_failed (counted across runs) the run aborts,
+saved in the same file. If 3 claims in a row end llm_failed or exception (counted across runs) the run aborts,
 prints their error texts, exits 3 and writes no results file (D64).
 """
 import argparse
@@ -91,8 +91,8 @@ def main(argv=None, data_dir: Path = V2, results_dir: Path = RESULTS, llm_factor
     except ConsecutiveFailuresError as exc:
         # D64: a provider failure must not burn the one-time test file, so nothing is written.
         print(str(exc), file=sys.stderr)
-        for run, cid, errors in exc.failures:
-            print(f"run {run} {cid} llm_failed: {' | '.join(errors) or '(no error text)'}", file=sys.stderr)
+        for run, cid, status, errors in exc.failures:
+            print(f"run {run} {cid} {status}: {' | '.join(errors) or '(no error text)'}", file=sys.stderr)
         return 3
     out = build_output(split=args.split, model=getattr(llm, "model", "unknown"),
                        temperature=getattr(llm, "temperature", None), runs_results=runs_results, gts=gts,

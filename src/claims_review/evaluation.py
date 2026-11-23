@@ -26,6 +26,7 @@ BASELINE_LABEL = ("rules only, no LLM. Rule-flag scores are at ceiling by constr
                   "it cannot raise policy_reading flags, so its decision accuracy and flag recall are lower.")
 SCHEMA_VERSION = 1
 ABORT_AFTER_CONSECUTIVE_FAILURES = 3
+STREAK_STATUSES = ("llm_failed", "exception")  # statuses that count toward the failure streak (D64)
 ERROR_TEXT_LIMIT = 300
 KEY_PATTERN = re.compile(r"gsk_[A-Za-z0-9]{20,}")
 SUMMARY_KEYS = ("decision_accuracy", "flag_precision", "flag_recall",
@@ -38,12 +39,13 @@ class EvalGuardError(RuntimeError):
 
 
 class ConsecutiveFailuresError(RuntimeError):
-    """ABORT_AFTER_CONSECUTIVE_FAILURES claims in a row ended llm_failed (D64). failures holds
-    (run, claim id, sanitized error texts) for each of them, oldest first."""
+    """ABORT_AFTER_CONSECUTIVE_FAILURES claims in a row ended llm_failed or exception (D64). failures holds
+    (run, claim id, status, sanitized error texts) for each of them, oldest first."""
 
-    def __init__(self, failures: list[tuple[int, str, list[str]]]):
+    def __init__(self, failures: list[tuple[int, str, str, list[str]]]):
         self.failures = failures
-        super().__init__(f"{len(failures)} consecutive llm_failed claims; aborting with no results file.")
+        super().__init__(f"{len(failures)} consecutive failed claims (llm_failed or exception); "
+                         "aborting with no results file.")
 
 
 def sanitize_errors(errors) -> list[str]:
@@ -236,8 +238,9 @@ def run_split(claims: list[dict], review: Callable[[dict], dict], runs: int,
     """Run review() on every claim, runs times, sequentially. An exception becomes an error result
     (status "exception"), never a dropped claim (D13). progress gets (run number, claim id, status).
 
-    Failure guard (D64): if ABORT_AFTER_CONSECUTIVE_FAILURES claims in a row end llm_failed, counted
-    across runs, ConsecutiveFailuresError is raised and nothing is returned. Any other status resets the count."""
+    Failure guard (D64): if ABORT_AFTER_CONSECUTIVE_FAILURES claims in a row end llm_failed or exception
+    (STREAK_STATUSES; mixed statuses count toward the same streak), counted across runs,
+    ConsecutiveFailuresError is raised and nothing is returned. Any other status resets the count."""
     if runs < 1:
         raise ValueError("runs must be at least 1")
     all_runs, streak = [], []
@@ -252,8 +255,8 @@ def run_split(claims: list[dict], review: Callable[[dict], dict], runs: int,
                           "errors": [f"{type(exc).__name__}: {exc}"]}
             results.append(result)
             progress(run, result["claim_id"], result["status"])
-            if result.get("status") == "llm_failed":
-                streak.append((run, result["claim_id"], sanitize_errors(result.get("errors"))))
+            if result.get("status") in STREAK_STATUSES:
+                streak.append((run, result["claim_id"], result["status"], sanitize_errors(result.get("errors"))))
                 if len(streak) >= ABORT_AFTER_CONSECUTIVE_FAILURES:
                     raise ConsecutiveFailuresError(streak[-ABORT_AFTER_CONSECUTIVE_FAILURES:])
             else:
