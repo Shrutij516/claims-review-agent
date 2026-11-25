@@ -117,7 +117,7 @@ Real claims would need PII and PHI redaction (names, member ids, dates of birth,
 
 ## Evaluation
 
-**Method.** 60 synthetic claims split into 20 dev and 40 test. The test split and its ground truth are frozen by SHA256 in `data/v2/TEST_SPLIT.sha256` (D5). Tools, retrieval and prompts were tuned on dev only (D14). The eval runs the plain agent (no human review, D37) 3 times and reports the mean and the min to max range, with every per-run number saved (D56). The rules-only baseline is scored on the same claims with the same functions.
+**Method.** 60 synthetic claims split into 20 dev and 40 test. The test split and its ground truth are frozen by SHA256 in `data/v2/TEST_SPLIT.sha256` (D5). Tools, retrieval and prompts were tuned on dev only (D14). The eval runs the plain agent (no human review, D37). Dev used 3 runs, reported as the mean and the min to max range with every per-run number saved (D56). Test used 1 run (D65, D66), so it has no range and says nothing about run-to-run spread. The rules-only baseline is scored on the same claims with the same functions.
 
 **Metrics** (D54, D55):
 
@@ -144,9 +144,32 @@ Real claims would need PII and PHI redaction (names, member ids, dates of birth,
 
 What went wrong on dev: V2-0033 got a false positive `P_DEGENERATIVE_ONLY` in all 3 runs (see Limitations). In run 2, V2-0053 ended as an error, so its expected `P_NO_CONSERVATIVE_THERAPY` flag was missed. The baseline misses exactly the 2 policy-reading flags (V2-0009, V2-0053), as expected for a rules-only system.
 
-**Test results: pending final run.**
+### Test results
 
-The final test run is the one-time run on the frozen split (D57). The first launch of it was invalid and is disclosed under Honest notes (D63). If the Groq Developer plan upgrade is unavailable on the day of the final run, the test eval uses 1 run (`--runs 1`) in a clean 24 hour window instead of 3, because the free tier allows 200K tokens per day for gpt-oss-120b and 3 runs likely need more tokens than one day allows on the free tier (an estimate, not measured). This was decided before any test result existed (D65).
+`results/eval_test.json`: 40 claims, 1 run, `openai/gpt-oss-120b`, temperature 0, commit dc229b5.
+
+| Metric | Agent, single run | Rules-only baseline |
+|---|---|---|
+| Decision accuracy | 1.000 | 0.850 |
+| Flag precision | 1.000 | 1.000 |
+| Flag recall | 1.000 | 0.667 |
+| policy_reading precision | 1.000 | undefined (raises none) |
+| policy_reading recall | 1.000 | 0.000 |
+| Rule precision | 1.000 | 1.000 |
+| Rule recall | 1.000 | 1.000 |
+| Errors | 0 | 0 |
+| Judge flags rejected | 0 | n/a |
+| Retries used | 2 | n/a |
+| Template fallbacks | 0 | n/a |
+
+What went wrong on test: for the agent, no missed flags, no false positives and no error claims. The baseline missed 6 policy-reading flags: `P_NO_CONSERVATIVE_THERAPY` on V2-0002, V2-0008 and V2-0048, and `P_DEGENERATIVE_ONLY` on V2-0010, V2-0045 and V2-0057.
+
+- This is the one-time final run on the frozen split (D57), and the numbers are reported as they came out.
+- It used 1 run because the free tier's limit of 200K tokens per day blocked 3 runs and Developer upgrades were unavailable (D65, D66). That 3 runs would not fit in one day is an estimate, not a measurement.
+- The first launch was invalid (D63), and a second launch was stopped by the failure guard partway through run 1 with no file written (I59). Both are described under Honest notes. Neither was used, and agent logic did not change between them and this run.
+- V2-0007, V2-0011 and V2-0031 are test claims that were inspected earlier (I30), so the test split was not completely unseen.
+
+Compared with dev, the test scores are higher than the dev means, but with one run, 40 synthetic claims from the same generator and author, and only 6 expected policy_reading flags, that does not show the dev failures (V2-0033, V2-0053) are fixed or that the agent would do this well on real claims.
 
 ## Limitations
 

@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "split": "test",
+  "claim_count": 40,
+  "runs": 1,
+  "model": "openai/gpt-oss-120b",
+  "temperature": 0,
+  "date_utc": "2026-11-25T01:32:08+00:00",
+  "git_commit": "dc229b5438af59554e4e8912ba210c3db7da361c",
+  "agent": {
+    "per_run": [
+      {
+        "claims": 40,
+        "decision_accuracy": 1.0,
+        "decision_confusion": {
+          "tp": 18,
+          "fp": 0,
+          "tn": 22,
+          "fn": 0
+        },
+        "errors": 0,
+        "error_claim_ids": [],
+        "flag_precision": 1.0,
+        "flag_recall": 1.0,
+        "flag_counts": {
+          "tp": 18,
+          "fp": 0,
+          "fn": 0
+        },
+        "policy_reading_precision": 1.0,
+        "policy_reading_recall": 1.0,
+        "policy_reading_counts": {
+          "tp": 6,
+          "fp": 0,
+          "fn": 0
+        },
+        "rule_precision": 1.0,
+        "rule_recall": 1.0,
+        "rule_counts": {
+          "tp": 12,
+          "fp": 0,
+          "fn": 0
+        },
+        "judge_flags_rejected": 0,
+        "retries_used": 2,
+        "template_fallbacks": 0,
+        "per_claim": {}
+      }
+    ],
+    "summary": {
+      "decision_accuracy": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0,
+        "n_defined": 1
+      },
+      "flag_precision": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0,
+        "n_defined": 1
+      },
+      "flag_recall": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0,
+        "n_defined": 1
+      },
+      "policy_reading_precision": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0,
+        "n_defined": 1
+      },
+      "policy_reading_recall": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0,
+        "n_defined": 1
+      },
+      "rule_precision": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0,
+        "n_defined": 1
+      },
+      "rule_recall": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0,
+        "n_defined": 1
+      },
+      "errors": {
+        "mean": 0.0,
+        "min": 0,
+        "max": 0,
+        "n_defined": 1
+      },
+      "judge_flags_rejected": {
+        "mean": 0.0,
+        "min": 0,
+        "max": 0,
+        "n_defined": 1
+      },
+      "retries_used": {
+        "mean": 2.0,
+        "min": 2,
+        "max": 2,
+        "n_defined": 1
+      },
+      "template_fallbacks": {
+        "mean": 0.0,
+        "min": 0,
+        "max": 0,
+        "n_defined": 1
+      }
+    }
+  },
+  "rules_only_baseline": {
+    "label": "rules only, no LLM. Rule-flag scores are at ceiling by construction (D22); it cannot raise policy_reading flags, so its decision accuracy and flag recall are lower.",
+    "claims": 40,
+    "decision_accuracy": 0.85,
+    "decision_confusion": {
+      "tp": 12,
+      "fp": 0,
+      "tn": 22,
+      "fn": 6
+    },
+    "errors": 0,
+    "error_claim_ids": [],
+    "flag_precision": 1.0,
+    "flag_recall": 0.6666666666666666,
+    "flag_counts": {
+      "tp": 12,
+      "fp": 0,
+      "fn": 6
+    },
+    "policy_reading_precision": null,
+    "policy_reading_recall": 0.0,
+    "policy_reading_counts": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 6
+    },
+    "rule_precision": 1.0,
+    "rule_recall": 1.0,
+    "rule_counts": {
+      "tp": 12,
+      "fp": 0,
+      "fn": 0
+    },
+    "per_claim": {
+      "V2-0002": {
+        "missed": [
+          "P_NO_CONSERVATIVE_THERAPY"
+        ],
+        "false_positive": []
+      },
+      "V2-0008": {
+        "missed": [
+          "P_NO_CONSERVATIVE_THERAPY"
+        ],
+        "false_positive": []
+      },
+      "V2-0010": {
+        "missed": [
+          "P_DEGENERATIVE_ONLY"
+        ],
+        "false_positive": []
+      },
+      "V2-0045": {
+        "missed": [
+          "P_DEGENERATIVE_ONLY"
+        ],
+        "false_positive": []
+      },
+      "V2-0048": {
+        "missed": [
+          "P_NO_CONSERVATIVE_THERAPY"
+        ],
+        "false_positive": []
+      },
+      "V2-0057": {
+        "missed": [
+          "P_DEGENERATIVE_ONLY"
+        ],
+        "false_positive": []
+      }
+    }
+  }
+}
