@@ -162,12 +162,16 @@ What went wrong on dev: V2-0033 got a false positive `P_DEGENERATIVE_ONLY` in al
 | Retries used | 2 | n/a |
 | Template fallbacks | 0 | n/a |
 
-What went wrong on test: for the agent, no missed flags, no false positives and no error claims. The baseline missed 6 policy-reading flags: `P_NO_CONSERVATIVE_THERAPY` on V2-0002, V2-0008 and V2-0048, and `P_DEGENERATIVE_ONLY` on V2-0010, V2-0045 and V2-0057.
+Result: no missed flags and no false positives across the 40 test claims in this single run. There were also no error claims.
+
+What went wrong on test: nothing for the agent. The baseline missed 6 policy-reading flags: `P_NO_CONSERVATIVE_THERAPY` on V2-0002, V2-0008 and V2-0048, and `P_DEGENERATIVE_ONLY` on V2-0010, V2-0045 and V2-0057.
 
 - This is the one-time final run on the frozen split (D57), and the numbers are reported as they came out.
 - It used 1 run because the free tier's limit of 200K tokens per day blocked 3 runs and Developer upgrades were unavailable (D65, D66). That 3 runs would not fit in one day is an estimate, not a measurement.
 - The first launch was invalid (D63), and a second launch was stopped by the failure guard partway through run 1 with no file written (I59). Both are described under Honest notes. Neither was used, and agent logic did not change between them and this run.
 - V2-0007, V2-0011 and V2-0031 are test claims that were inspected earlier (I30), so the test split was not completely unseen.
+
+**How to read this.** This is one run only. The test set has 6 expected policy_reading flags and 12 rule flags. Rules and labels share one catalog and one author (D22, D23). The data is synthetic, so this is not real-world accuracy. Dev had a false positive that test did not, so the dev results should not be read as the ceiling or the floor.
 
 Compared with dev, the test scores are higher than the dev means, but with one run, 40 synthetic claims from the same generator and author, and only 6 expected policy_reading flags, that does not show the dev failures (V2-0033, V2-0053) are fixed or that the agent would do this well on real claims.
 
@@ -194,6 +198,6 @@ Compared with dev, the test scores are higher than the dev means, but with one r
 
 ## Honest notes
 
-- **The first final test attempt was invalid.** Runs 2 and 3 of that attempt ended `llm_failed` (run 2 from V2-0004 onward, run 3 entirely); run 1 completed. The file is kept as `results/eval_test_attempt1_invalid.json` and was never opened or analyzed (D63). The likely cause is the provider's daily token limit: a later re-run was stopped by the failure guard with a tokens-per-day limit error (I59). An aborted launch writes no file and does not count as an attempt. The harness now records failure text and aborts after 3 consecutive failed claims without writing any results file (D64).
+- **The first final test attempt was invalid.** Runs 2 and 3 of that attempt ended `llm_failed` (run 2 from V2-0004 onward, run 3 entirely); run 1 completed. The file is kept as `results/eval_test_attempt1_invalid.json` (D63). No person read it and no metrics were computed from it. `scripts/verify_phase.py` parses it only to check that it is valid JSON with split "test", is a different file from `results/eval_test.json` and has a clean commit field, and prints its run count, claim count and commit (I63). The likely cause is the provider's daily token limit: a later re-run was stopped by the failure guard with a tokens-per-day limit error (I59). An aborted launch writes no file and does not count as an attempt. The harness now records failure text and aborts after 3 consecutive failed claims without writing any results file (D64).
 - Headline numbers are never the best of several runs (I1, D56).
 - Every decision, deviation and mistake (including the reviewer's) is logged in [DECISIONS.md](DECISIONS.md).
